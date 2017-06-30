@@ -12,10 +12,12 @@ import android.database.sqlite.SQLiteDatabase;
 import java.net.URL;
 
 
-public class PickADatabase extends AppCompatActivity {
+public class PickADatabase extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_adatabase);
     }
@@ -24,7 +26,7 @@ public class PickADatabase extends AppCompatActivity {
     public void selectCassavaDatabase(View view)
     {
         SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
-        editor.putString("SelectedDatabase", "CassavaDatebase");
+        editor.putString("SelectedDatabase", "https://cassavabase.org/");
 
         editor.apply();
 
@@ -35,7 +37,7 @@ public class PickADatabase extends AppCompatActivity {
     public void selectSweetPotatoDatabase(View view)
     {
         SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
-        editor.putString("SelectedDatabase", "SweetPotatoDatabase");
+        editor.putString("SelectedDatabase", "https://sweetpotatobase.org/");
 
         editor.apply();
 
@@ -46,7 +48,7 @@ public class PickADatabase extends AppCompatActivity {
     public void selectMusaDatabase(View view)
     {
         SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
-        editor.putString("SelectedDatabase", "MusaDatabase");
+        editor.putString("SelectedDatabase", "https://musabase.org/");
 
         editor.apply();
 
@@ -57,7 +59,7 @@ public class PickADatabase extends AppCompatActivity {
     public void selectYamDatabase(View view)
     {
         SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
-        editor.putString("SelectedDatabase", "YamDatabase");
+        editor.putString("SelectedDatabase", "https://yambase.org/");
 
         editor.apply();
 

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nicolas.brapi">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +23,8 @@
             android:name=".PickADatabase"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".SearchADatabase" />
-        <activity android:name=".PickACrop"></activity>
+        <activity android:name=".PickACrop" />
+        <activity android:name=".CallToURL"></activity>
     </application>
 
 </manifest>
