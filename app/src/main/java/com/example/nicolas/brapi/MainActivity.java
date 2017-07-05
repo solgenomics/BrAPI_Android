@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, PickADatabase.class);
         startActivity(intent);
     }
-
 }
 
 

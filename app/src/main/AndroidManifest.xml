@@ -24,7 +24,8 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".SearchADatabase" />
         <activity android:name=".PickACrop" />
-        <activity android:name=".CallToURL"></activity>
+        <activity android:name=".CallToURL" />
+        <activity android:name=".MainSearchDatabase"></activity>
     </application>
 
 </manifest>

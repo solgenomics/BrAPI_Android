@@ -8,13 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.net.URL;
-
 
 public class PickADatabase extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -22,7 +19,6 @@ public class PickADatabase extends AppCompatActivity
         setContentView(R.layout.activity_pick_adatabase);
     }
 
-    
     public void selectCassavaDatabase(View view)
     {
         SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
@@ -30,7 +26,7 @@ public class PickADatabase extends AppCompatActivity
 
         editor.apply();
 
-        Intent GetCrop = new Intent(this, PickACrop.class);
+        Intent GetCrop = new Intent(this, SearchADatabase.class);
         startActivity(GetCrop);
     }
 
@@ -41,7 +37,7 @@ public class PickADatabase extends AppCompatActivity
 
         editor.apply();
 
-        Intent GetCrop = new Intent(this, PickACrop.class);
+        Intent GetCrop = new Intent(this, SearchADatabase.class);
         startActivity(GetCrop);
     }
 
@@ -52,7 +48,7 @@ public class PickADatabase extends AppCompatActivity
 
         editor.apply();
 
-        Intent GetCrop = new Intent(this, PickACrop.class);
+        Intent GetCrop = new Intent(this, SearchADatabase.class);
         startActivity(GetCrop);
     }
 
@@ -63,9 +59,8 @@ public class PickADatabase extends AppCompatActivity
 
         editor.apply();
 
-        Intent GetCrop = new Intent(this, PickACrop.class);
+        Intent GetCrop = new Intent(this, SearchADatabase.class);
         startActivity(GetCrop);
     }
-
 
 }

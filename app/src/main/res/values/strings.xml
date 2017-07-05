@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BrAPI</string>
+    <string name="Description">Loading...</string>
 </resources>

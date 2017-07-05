@@ -1,5 +1,6 @@
 package com.example.nicolas.brapi;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.AsyncTask;
@@ -19,7 +20,6 @@ import static android.content.ContentValues.TAG;
 public class CallToURL extends AppCompatActivity
 {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,22 +29,40 @@ public class CallToURL extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
         String CurrentSelectDatabase = prefs.getString("SelectedDatabase", "No Database Selected");
 
-        new CallToDatabase().execute(CurrentSelectDatabase);
+        Intent intent = getIntent();
+        String CurrentDataCall = intent.getStringExtra(PickACrop.CurrentDataCall);
+
+        MyTaskParams params = new MyTaskParams(CurrentSelectDatabase, CurrentDataCall);
+        CallToDatabase myTask = new CallToDatabase();
+        myTask.execute(params);
     }
 
-    private class CallToDatabase extends AsyncTask<String, Void, String>
+    public static class MyTaskParams
+    {
+        String Select;
+        String Call;
+
+        MyTaskParams(String Select, String Call)
+        {
+            this.Select = Select;
+            this.Call = Call;
+        }
+
+    }
+
+    private class CallToDatabase extends AsyncTask<MyTaskParams, Void, String>
     {
 
         @Override
-        protected String doInBackground(String...params)
+        protected String doInBackground(MyTaskParams...params)
         {
-            String CurrentDatabase = params[0];
-
+            String CurrentDatabase = params[0].Select;
+            String CurrentDataCall = params[0].Call;
 
             Log.d(TAG, CurrentDatabase);
             try
             {
-                URL url = new URL(CurrentDatabase+"/brapi/v1/germplasm-search");
+                URL url = new URL(CurrentDatabase+CurrentDataCall);
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try

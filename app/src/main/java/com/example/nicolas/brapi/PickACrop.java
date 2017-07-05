@@ -13,16 +13,19 @@ import static android.content.ContentValues.TAG;
 public class PickACrop extends AppCompatActivity
 {
 
-
+    public static final String CurrentDataCall = "com.example.nicolas.brapi";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_acrop);
 
         Intent GetCrop = new Intent(this, CallToURL.class);
+
+        GetCrop.putExtra(CurrentDataCall, "brapi/v1/crops");
+
         startActivity(GetCrop);
     }
-
 
 }
