@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Database_List">
+        <item>Cassava Database</item>
+        <item>Sweet Potato Database</item>
+        <item>Musa Database</item>
+        <item>Yam Database</item>
+    </string-array>
+
+    <string-array name="Category_List">
+        <item>Germplasm</item>
+        <item>Phenotypes</item>
+        <item>Locations</item>
+        <item>Trials</item>
+        <item>Traits</item>
+    </string-array>
+
+</resources>
