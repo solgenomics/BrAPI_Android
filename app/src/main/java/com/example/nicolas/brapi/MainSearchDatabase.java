@@ -25,6 +25,7 @@ import static android.content.ContentValues.TAG;
 public class MainSearchDatabase extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     public static final String CurrentDataCall = "com.example.nicolas.brapi";
+    SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,23 +50,7 @@ public class MainSearchDatabase extends AppCompatActivity implements AdapterView
         spinner2.setAdapter(adapter2);
         spinner2.setOnItemSelectedListener(this);
 
-        final String StringSpinner = spinner.getSelectedItem().toString();
-        final String StringSpinner2 = spinner2.getSelectedItem().toString();
 
-        //Identifying button
-        Button button = (Button) findViewById(R.id.SearchId);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
-                editor.putString("SelectedSearch", StringSpinner + StringSpinner2);
-                editor.apply();
-
-            }
-        });
-        Intent GetCrop = new Intent(this, CallToURL.class);
-        GetCrop.putExtra(CurrentDataCall, StringSpinner2);
-        startActivity(GetCrop);
     }
 
     //Action when something is selected

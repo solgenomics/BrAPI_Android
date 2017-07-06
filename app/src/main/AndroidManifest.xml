@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginInPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,12 +21,12 @@
         </activity>
         <activity
             android:name=".PickADatabase"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".LoginInPage" />
         <activity android:name=".SearchADatabase" />
         <activity android:name=".PickACrop" />
         <activity android:name=".CallToURL" />
         <activity android:name=".MainSearchDatabase" />
-        <activity android:name=".LoginInPage"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
