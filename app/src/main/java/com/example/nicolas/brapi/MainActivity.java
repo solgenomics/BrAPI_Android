@@ -5,8 +5,11 @@ import android.content.SharedPreferences;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -21,9 +24,17 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
         String CurrentSelectDatabase = prefs.getString("SelectedDatabase", "No Database Selected");
 
-
         TextView txt = (TextView) findViewById(R.id.CurrentDatabase);
-        txt.setText("Current Database: " +CurrentSelectDatabase);
+        txt.setText("Picked: " +CurrentSelectDatabase);
+
+
+        //on current search
+        SharedPreferences prefs2 = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
+        String CurrentSelectSearch = prefs.getString("SelectedSearch", "No Database Searched");
+
+        TextView txt2 = (TextView) findViewById(R.id.CurrentSearched);
+        txt2.setText("Searched: " +CurrentSelectSearch);
+
 
     }
 

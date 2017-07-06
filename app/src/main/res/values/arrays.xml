@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //Database Resources --------------
     <string-array name="Database_List">
         <item>Cassava Database</item>
         <item>Sweet Potato Database</item>
@@ -7,6 +8,16 @@
         <item>Yam Database</item>
     </string-array>
 
+    <string-array name="Database_List_URL" translatable = "false">
+        <item>https://cassavabase.org/</item>
+        <item>https://sweetpotatobase.org/</item>
+        <item>https://yambase.org/</item>
+        <item>https://yambase.org/</item>
+    </string-array>
+    //---------------------------------
+
+
+    //Category Resources --------------
     <string-array name="Category_List">
         <item>Germplasm</item>
         <item>Phenotypes</item>
@@ -14,5 +25,14 @@
         <item>Trials</item>
         <item>Traits</item>
     </string-array>
+
+    <string-array name="Category_List_URL">
+        <item>brapi/v1/germplasm</item>
+        <item>brapi/v1/phenotypes</item>
+        <item>brapi/v1/locations</item>
+        <item>brapi/v1/trials</item>
+        <item>brapi/v1/traits</item>
+    </string-array>
+    //---------------------------------
 
 </resources>

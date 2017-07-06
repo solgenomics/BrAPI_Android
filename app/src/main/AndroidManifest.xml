@@ -25,7 +25,8 @@
         <activity android:name=".SearchADatabase" />
         <activity android:name=".PickACrop" />
         <activity android:name=".CallToURL" />
-        <activity android:name=".MainSearchDatabase"></activity>
+        <activity android:name=".MainSearchDatabase" />
+        <activity android:name=".LoginInPage"></activity>
     </application>
 
 </manifest>

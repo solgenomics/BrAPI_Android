@@ -2,6 +2,7 @@ package com.example.nicolas.brapi;
 
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.view.View;
 

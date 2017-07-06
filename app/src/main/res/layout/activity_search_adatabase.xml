@@ -76,12 +76,12 @@
 
     <TextView
         android:id="@+id/Search"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_width="45dp"
-        android:layout_height="25dp"
-        android:text="Search:"
+        android:layout_width="111dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="21dp"
+        android:text="Pick a Category:"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
 
 </android.support.constraint.ConstraintLayout>
