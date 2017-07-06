@@ -25,7 +25,6 @@ import static android.content.ContentValues.TAG;
 public class MainSearchDatabase extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     public static final String CurrentDataCall = "com.example.nicolas.brapi";
-    SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
