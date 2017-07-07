@@ -41,8 +41,5 @@
         <item name="android:layout_width">350dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:textAlignment">center</item>
-
-
-
     </style>
 </resources>

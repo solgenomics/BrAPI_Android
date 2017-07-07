@@ -22,22 +22,23 @@
         <activity
             android:name=".PickADatabase"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".SelectACategory"
-            android:parentActivityName=".PickADatabase"/>
+            android:parentActivityName=".PickADatabase" />
         <activity
             android:name=".CallToURL"
-            android:parentActivityName=".SearchADatabase"/>
+            android:parentActivityName=".SearchADatabase" />
         <activity
             android:name=".SearchADatabase"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".LoginInPage" />
         <activity
             android:name=".Register"
-            android:parentActivityName=".LoginInPage"/>
+            android:parentActivityName=".LoginInPage" />
+        <activity android:name=".AddADatabase" />
+        <activity android:name=".PostToBrapi"></activity>
     </application>
 
 </manifest>

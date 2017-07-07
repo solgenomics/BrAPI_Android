@@ -15,6 +15,13 @@ public class PickADatabase extends AppCompatActivity
         setContentView(R.layout.activity_pick_adatabase);
     }
 
+    public void selectedAddADatabase(View view)
+    {
+        Intent intent = new Intent(this, AddADatabase.class);
+        startActivity(intent);
+    }
+
+
     public void selectCassavaDatabase(View view)
     {
         SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
