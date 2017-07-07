@@ -1,117 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="0dp"
-    tools:context="com.example.nicolas.brapi.LoginInPage">
+    android:layout_height="match_parent"
+
+    android:paddingTop="@dimen/vertical_margin"
+    android:paddingBottom="@dimen/vertical_margin"
+    android:paddingRight="@dimen/horizontal_margin"
+    android:paddingLeft="@dimen/horizontal_margin"
+
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.nicolas.brapi.LoginInPage"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp"
+    android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/Username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username:"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
-        android:layout_marginEnd="8dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/plant" />
 
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="0dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="33dp"
-        android:ems="10"
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
+        <EditText
+            android:id="@+id/editText5"
+            style="@style/EditText_Style"
+            android:inputType="textEmailAddress" />
 
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp" />
+        <EditText
+            android:id="@+id/editText6"
+            android:inputType="textPassword"
+            style="@style/EditText_Style"/>
 
+        <Button
+            android:id="@+id/button"
+            style="@style/Button_Style"
+            android:text="log in" />
 
-    <TextView
-        android:id="@+id/Password"
-        android:layout_width="68dp"
-        android:layout_height="24dp"
-        android:text="Password:"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="112dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
-        android:layout_marginEnd="8dp" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="136dp"
-        android:ems="10"
-
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp" />
-
-
-
-    <Button
-        android:id="@+id/bLogin"
-        android:layout_height="wrap_content"
-        android:layout_width="208dp"
-        android:text="Login"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="218dp" />
-
-    <TextView
-        android:layout_width="135dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="2dp"
-
-        android:layout_marginRight="3dp"
-        android:text="Not a member?"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tvRegister" />
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="70dp"
-        android:layout_height="27dp"
-        android:text="Register"
-
-        android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/bLogin"
-        android:layout_marginRight="88dp" />
-
-
-
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>
