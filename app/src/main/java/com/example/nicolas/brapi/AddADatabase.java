@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import static android.content.ContentValues.TAG;
 
+
 public class AddADatabase extends AppCompatActivity implements View.OnClickListener
 {
+    public static final String CurrentCreatedData = "PostToBrapiStrings";
+    public static final String CurrentCreatedURL = "PostToBrapiStrings";
     Button bAddData;
     EditText DatabaseName, URLFormat;
 
@@ -29,14 +32,15 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
         DatabaseName = (EditText) findViewById(R.id.DatabaseName);
         URLFormat = (EditText) findViewById(R.id.URLFormat);
 
-
         String NewDatabaseName = DatabaseName.getText().toString();
         String NewURLFormat = URLFormat.getText().toString();
 
         Log.d(TAG, NewDatabaseName);
         Log.d(TAG, NewURLFormat);
 
-        Intent intent = new Intent(this, PickADatabase.class);
+        Intent intent = new Intent(this, PostToBrapi.class);
+        intent.putExtra(CurrentCreatedData, NewDatabaseName);
+        intent.putExtra(CurrentCreatedURL, NewURLFormat);
         startActivity(intent);
     }
 
