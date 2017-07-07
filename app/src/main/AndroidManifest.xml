@@ -21,13 +21,23 @@
         </activity>
         <activity
             android:name=".PickADatabase"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".SelectACategory"
+            android:parentActivityName=".PickADatabase"/>
+        <activity
+            android:name=".CallToURL"
+            android:parentActivityName=".SearchADatabase"/>
+        <activity
+            android:name=".SearchADatabase"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".MainActivity"
             android:parentActivityName=".LoginInPage" />
-        <activity android:name=".SearchADatabase" />
-        <activity android:name=".PickACrop" />
-        <activity android:name=".CallToURL" />
-        <activity android:name=".MainSearchDatabase" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Register"></activity>
+        <activity
+            android:name=".Register"
+            android:parentActivityName=".LoginInPage"/>
     </application>
 
 </manifest>

@@ -2,14 +2,10 @@ package com.example.nicolas.brapi;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -46,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
     public void SelectedSearch(View view)
     {
-        Intent intent = new Intent(this, MainSearchDatabase.class);
+        Intent intent = new Intent(this, SearchADatabase.class);
         startActivity(intent);
     }
 

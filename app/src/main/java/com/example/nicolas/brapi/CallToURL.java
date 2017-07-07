@@ -30,7 +30,7 @@ public class CallToURL extends AppCompatActivity
         String CurrentSelectDatabase = prefs.getString("SelectedDatabase", "No Database Selected");
 
         Intent intent = getIntent();
-        String CurrentDataCall = intent.getStringExtra(PickACrop.CurrentDataCall);
+        String CurrentDataCall = intent.getStringExtra(SelectACategory.CurrentDataCall);
 
         MyTaskParams params = new MyTaskParams(CurrentSelectDatabase, CurrentDataCall);
         CallToDatabase myTask = new CallToDatabase();
@@ -63,6 +63,7 @@ public class CallToURL extends AppCompatActivity
             try
             {
                 URL url = new URL(CurrentDatabase+CurrentDataCall);
+                Log.d(TAG,CurrentDatabase+CurrentDataCall);
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try

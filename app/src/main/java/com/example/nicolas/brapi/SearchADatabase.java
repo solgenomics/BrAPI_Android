@@ -1,56 +1,60 @@
 package com.example.nicolas.brapi;
 
-
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
-import java.net.URL;
+import static android.content.ContentValues.TAG;
 
-public class SearchADatabase extends MainActivity
+public class SearchADatabase extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
 
+    Button bSearch;
     public static final String CurrentDataCall = "com.example.nicolas.brapi";
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_adatabase);
 
+        //Database Spinner
+        Spinner spinner = (Spinner) findViewById(R.id.spinner6);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Database_List_URL, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        //Category Spinner
+        Spinner spinner2 = (Spinner) findViewById(R.id.spinner);
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.Category_List_URL, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner2.setAdapter(adapter2);
+        spinner2.setOnItemSelectedListener(this);
+
+        String StringData = spinner.getSelectedItem().toString();
+
+
+        Log.d(TAG, StringData);
+
     }
 
-    public void SelectTraits(View view)
+    //Action when something is selected
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
-        Intent GetCrop = new Intent(this, CallToURL.class);
-        GetCrop.putExtra(CurrentDataCall, "brapi/v1/traits");
-        startActivity(GetCrop);
+
     }
 
-    public void SelectGermplasm(View view)
+    //Action when nothing is selected
+    public void onNothingSelected(AdapterView<?> parent)
     {
-        Intent GetCrop = new Intent(this, CallToURL.class);
-        GetCrop.putExtra(CurrentDataCall, "brapi/v1/germplasm-search");
-        startActivity(GetCrop);
-    }
-
-    public void SelectTrials(View view)
-    {
-        Intent GetCrop = new Intent(this, CallToURL.class);
-        GetCrop.putExtra(CurrentDataCall, "brapi/v1/trials");
-        startActivity(GetCrop);
-    }
-
-    public void SelectPhenotypes(View view)
-    {
-       Intent GetCrop = new Intent(this, CallToURL.class);
-        GetCrop.putExtra(CurrentDataCall, "brapi/v1/phenotypes-search");
-        startActivity(GetCrop);
-    }
-
-    public void SelectLocations(View view)
-    {
-        Intent GetCrop = new Intent(this, CallToURL.class);
-        GetCrop.putExtra(CurrentDataCall, "brapi/v1/locations");
-        startActivity(GetCrop);
     }
 }
