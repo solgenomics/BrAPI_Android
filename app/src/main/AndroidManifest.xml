@@ -38,7 +38,8 @@
             android:name=".Register"
             android:parentActivityName=".LoginInPage" />
         <activity android:name=".AddADatabase" />
-        <activity android:name=".PostToBrapi"></activity>
+        <activity android:name=".PostToBrapi" />
+        <activity android:name=".WebViewActivity"></activity>
     </application>
 
 </manifest>
