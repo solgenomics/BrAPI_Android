@@ -42,4 +42,28 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:textAlignment">center</item>
     </style>
+
+    <style name="selectCategory_Button_style">
+        <item name="android:background">@drawable/selectcategory_button_style</item>
+        <item name="android:layout_width">342dp</item>
+        <item name="android:layout_height">59dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pickaDatabase_button_Style">
+        <item name="android:background">@drawable/pickadatabase_button_style</item>
+        <item name="android:layout_width">342dp</item>
+        <item name="android:layout_height">59dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="pickADatabase_smallButton">
+        <item name="android:background">@drawable/pickadatabase_button_style</item>
+    </style>
+
+
 </resources>

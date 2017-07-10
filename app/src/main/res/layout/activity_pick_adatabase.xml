@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.example.nicolas.brapi.PickADatabase">
 
     <TextView
@@ -13,6 +14,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Pick A BTI Database:"
+        android:textColor="#fff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp" />
@@ -22,19 +24,23 @@
         android:layout_width="154dp"
         android:layout_height="44dp"
         android:layout_marginEnd="17dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="16dp"
+        style="@style/pickADatabase_smallButton"
         android:onClick="selectedAddADatabase"
         android:text="create Database"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="17dp"
+        android:layout_marginRight="47dp"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteX="213dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.92" />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="423dp"
+        android:layout_height="430dp"
+        android:layout_marginTop="92dp"
         android:orientation="vertical"
-        android:layout_marginTop="90dp"
+        android:weightSum="1"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -44,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
+            android:layout_weight="7.30"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -52,58 +59,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="-30dp"
                 android:orientation="vertical"
-                android:layout_marginTop="-30dp">
-
-                <Button
-                    android:id="@+id/MusaDatabase"
-                    android:layout_width="342dp"
-                    android:layout_height="59dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="24dp"
-                    android:onClick="selectMusaDatabase"
-                    android:text="Musa"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/CassavaDatabase" />
+                android:weightSum="1">
 
                 <Button
                     android:id="@+id/CassavaDatabase"
-                    android:layout_width="342dp"
-                    android:layout_height="59dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="24dp"
+                    style="@style/pickaDatabase_button_Style"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="0.28"
                     android:onClick="selectCassavaDatabase"
                     android:text="Cassava"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
+                    android:id="@+id/MusaDatabase"
+                    style="@style/pickaDatabase_button_Style"
+                    android:onClick="selectMusaDatabase"
+                    android:text="Musa"
+                    app:layout_constraintTop_toBottomOf="@+id/CassavaDatabase" />
+
+                <Button
                     android:id="@+id/SweetPotatoDatabase"
-                    android:layout_width="342dp"
-                    android:layout_height="59dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="24dp"
+                    style="@style/pickaDatabase_button_Style"
                     android:onClick="selectSweetPotatoDatabase"
-                    android:text="Sweet Potato"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    android:text="Sweet Potato" />
 
                 <Button
                     android:id="@+id/YamDatabase"
-                    android:layout_width="342dp"
-                    android:layout_height="59dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="24dp"
+                    style="@style/pickaDatabase_button_Style"
                     android:onClick="selectYamDatabase"
-                    android:text="Yam"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    android:text="Yam" />
+
             </LinearLayout>
 
 

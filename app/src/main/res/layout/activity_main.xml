@@ -4,30 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.example.nicolas.brapi.MainActivity">
 
-    <Button
-        android:id="@+id/SearchDatabase"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="94dp"
-        android:onClick="SelectedSearch"
-        android:text="Search a Database"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/PickDatabase"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        style="@style/pickaDatabase_button_Style"
         android:layout_marginTop="35dp"
         android:onClick="SelectedDatabase"
         android:text="Pick a Database"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/SearchDatabase"
+        style="@style/pickaDatabase_button_Style"
+        android:layout_marginTop="109dp"
+        android:onClick="SelectedSearch"
+        android:text="Search a Database"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +36,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#fff"
         app:layout_constraintTop_toBottomOf="@+id/SearchDatabase" />
 
     <TextView
@@ -49,9 +46,10 @@
         android:layout_height="34dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:textColor="#fff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="290dp" />
+        android:layout_marginBottom="267dp" />
 
 </android.support.constraint.ConstraintLayout>

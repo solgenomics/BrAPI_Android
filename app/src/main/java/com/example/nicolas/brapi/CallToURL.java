@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import static android.content.ContentValues.TAG;
 public class CallToURL extends AppCompatActivity
 {
 
+    ProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,6 +50,9 @@ public class CallToURL extends AppCompatActivity
             Toast.makeText(this, "Network is not available", Toast.LENGTH_SHORT).show();
         }
         //---------------------------------------------------------
+
+        
+        progress = (ProgressBar) findViewById(R.id.progressBar);
 
     }
 
@@ -81,6 +86,7 @@ public class CallToURL extends AppCompatActivity
                 URL url = new URL(CurrentDatabase+CurrentDataCall);
                 Log.d(TAG,CurrentDatabase+CurrentDataCall);
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
+
 
                 try
                 {

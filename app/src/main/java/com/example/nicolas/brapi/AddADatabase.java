@@ -3,6 +3,7 @@ package com.example.nicolas.brapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +39,7 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, NewDatabaseName);
         Log.d(TAG, NewURLFormat);
 
-        Intent intent = new Intent(this, PostToBrapi.class);
+        Intent intent = new Intent(this, CallToURL.class);
         intent.putExtra(CurrentCreatedData, NewDatabaseName);
         intent.putExtra(CurrentCreatedURL, NewURLFormat);
         startActivity(intent);

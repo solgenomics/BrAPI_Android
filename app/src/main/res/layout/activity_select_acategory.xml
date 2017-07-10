@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.example.nicolas.brapi.SelectACategory">
+
+    <TextView
+        android:id="@+id/Search"
+        android:layout_width="111dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="21dp"
+        android:text="Pick a Category:"
+        android:textColor="#fff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/Germplasm"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        style="@style/selectCategory_Button_style"
         android:onClick="SelectGermplasm"
         android:text="Germplasm"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -20,11 +29,39 @@
         android:layout_marginTop="49dp" />
 
     <Button
+        android:id="@+id/Phenotypes"
+        style="@style/selectCategory_Button_style"
+        android:onClick="SelectPhenotypes"
+        android:text="Phenotypes"
+        android:layout_marginTop="21dp"
+        app:layout_constraintTop_toBottomOf="@+id/Germplasm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/Locations"
+        style="@style/selectCategory_Button_style"
+        android:onClick="SelectLocations"
+        android:text="Locations"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/Phenotypes" />
+
+    <Button
+        android:id="@+id/Traits"
+        style="@style/selectCategory_Button_style"
+        android:onClick="SelectTraits"
+        android:text="Traits"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/Locations" />
+
+
+    <Button
         android:id="@+id/Trials"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        style="@style/selectCategory_Button_style"
         android:onClick="SelectTrials"
         android:text="Trials"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,53 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Traits"
         app:layout_constraintVertical_bias="0.227" />
 
-    <Button
-        android:id="@+id/Phenotypes"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="SelectPhenotypes"
-        android:text="Phenotypes"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/Germplasm" />
 
-    <Button
-        android:id="@+id/Traits"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="SelectTraits"
-        android:text="Traits"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/Locations" />
 
-    <Button
-        android:id="@+id/Locations"
-        android:layout_width="342dp"
-        android:layout_height="59dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="SelectLocations"
-        android:text="Locations"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/Phenotypes" />
-
-    <TextView
-        android:id="@+id/Search"
-        android:layout_width="111dp"
-        android:layout_height="21dp"
-        android:layout_marginLeft="21dp"
-        android:text="Pick a Category:"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp" />
 
 </android.support.constraint.ConstraintLayout>
