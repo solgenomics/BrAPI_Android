@@ -51,7 +51,6 @@ public class CallToURL extends AppCompatActivity
         }
         //---------------------------------------------------------
 
-
         progress = (ProgressBar) findViewById(R.id.progressBar);
 
     }
