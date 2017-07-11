@@ -61,7 +61,7 @@ public class SearchADatabase extends AppCompatActivity implements AdapterView.On
         String StringData = spinner.getSelectedItem().toString();
         String StringRestofData = spinner2.getSelectedItem().toString();
 
-        Intent GetCrop = new Intent(this, CallToURL.class);
+        Intent GetCrop = new Intent(this, WebViewActivity.class);
         GetCrop.putExtra(StringData, StringRestofData);
 
 

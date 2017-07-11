@@ -13,8 +13,8 @@ import static android.content.ContentValues.TAG;
 
 public class AddADatabase extends AppCompatActivity implements View.OnClickListener
 {
-    public static final String CurrentCreatedData = "PostToBrapiStrings";
-    public static final String CurrentCreatedURL = "PostToBrapiStrings";
+    public static final String CurrentCreatedData = "PostToBrapiData";
+    public static final String CurrentCreatedURL = "PostToBrapiURL";
     Button bAddData;
     EditText DatabaseName, URLFormat;
 

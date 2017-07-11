@@ -27,9 +27,7 @@ public class WebViewActivity extends AppCompatActivity {
         String CurrentCreatedURL = AddADatabase.CurrentCreatedURL.toString();
         String CurrentCreatedDatabase = AddADatabase.CurrentCreatedData.toString();
 
-        setContentView(webView);
-
-        webView.loadUrl(CurrentCreatedURL);
+        webView.loadUrl("https://google.com/");
 
 
 
