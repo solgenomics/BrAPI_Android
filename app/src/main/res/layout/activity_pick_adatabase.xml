@@ -20,7 +20,7 @@
         android:layout_marginStart="16dp" />
 
     <Button
-        android:id="@+id/DeleteDatabase"
+        android:id="@+id/bDeleteDatabase"
         style="@style/pickADatabase_smallButton"
         android:layout_width="151dp"
         android:layout_height="44dp"
