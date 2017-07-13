@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     //Database Resources --------------
     <string-array name="Database_List">
         <item>Cassava Database</item>
@@ -15,7 +16,6 @@
         <item>https://yambase.org/</item>
     </string-array>
     //---------------------------------
-
 
     //Category Resources --------------
     <string-array name="Category_List">

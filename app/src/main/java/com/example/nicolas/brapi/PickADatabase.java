@@ -20,6 +20,11 @@ public class PickADatabase extends AppCompatActivity
         Intent intent = new Intent(this, AddADatabase.class);
         startActivity(intent);
     }
+    public void selectedDeleteADatabase(View view)
+    {
+        Intent intent = new Intent(this, RemoveADatabase.class);
+        startActivity(intent);
+    }
 
 
     public void selectCassavaDatabase(View view)

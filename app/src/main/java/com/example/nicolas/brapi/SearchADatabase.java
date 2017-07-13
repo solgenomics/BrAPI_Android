@@ -14,7 +14,7 @@ import static android.content.ContentValues.TAG;
 
 public class SearchADatabase extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     Spinner spinner, spinner2;
-
+    public static String StringData,StringRestofData;
     Button bSearch;
     public static final String CurrentDataCall = "com.example.nicolas.brapi";
     @Override
@@ -58,10 +58,10 @@ public class SearchADatabase extends AppCompatActivity implements AdapterView.On
     }
     @Override
     public void onClick(View view) {
-        String StringData = spinner.getSelectedItem().toString();
-        String StringRestofData = spinner2.getSelectedItem().toString();
+        StringData = spinner.getSelectedItem().toString();
+        StringRestofData = spinner2.getSelectedItem().toString();
 
-        Intent GetCrop = new Intent(this, WebViewActivity.class);
+        Intent GetCrop = new Intent(this, CallToURL.class);
         GetCrop.putExtra(StringData, StringRestofData);
 
 
