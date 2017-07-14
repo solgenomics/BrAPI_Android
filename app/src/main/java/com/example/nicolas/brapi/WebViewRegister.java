@@ -55,9 +55,9 @@ public class WebViewRegister extends AppCompatActivity {
                 + "&password" + Password
                 + "&email" + Email);
 
-        webView.addJavascriptInterface(new  MyJavaScriptInterface(this), "HtmlViewer");
+        webView.addJavascriptInterface(new  MyJavaScriptInterface2(this), "HtmlViewer");
 
-        Intent crop = new Intent(this, PickADatabase.class);
+        Intent crop = new Intent(this, LoginInPage.class);
         startActivity(crop);
     }
 }
@@ -73,8 +73,8 @@ class MyJavaScriptInterface2{
         System.out.println(html);
 
         Log.d(TAG, html);
-        String end1 = "Database CREATED";
-        String end2 = "Database EXISTS";
+        String end1 = "You are registered!";
+        String end2 = "Username already exists!";
 
 
         int duration = Toast.LENGTH_LONG;
