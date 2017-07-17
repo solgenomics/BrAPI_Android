@@ -31,7 +31,8 @@
         <activity
             android:name=".SearchADatabase"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity" />
         <activity
             android:name=".Register"
             android:parentActivityName=".LoginInPage" />
@@ -42,8 +43,12 @@
         <activity
             android:name=".RemoveADatabase"
             android:parentActivityName=".PickADatabase" />
-        <activity android:name=".WebViewRegister" />
-        <activity android:name=".WebViewLogin"></activity>
+        <activity
+            android:name=".WebViewRegister" />
+        <activity
+            android:name=".WebViewLogin"/>
+        <activity
+            android:name=".POSTToLogin"/>
     </application>
 
 </manifest>

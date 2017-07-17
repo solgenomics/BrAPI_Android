@@ -36,8 +36,8 @@ public class LoginInPage extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-        String getUserName = etUserName.toString();
-        String getPassword = etPassword.toString();
+        String getUserName = etUserName.getText().toString();
+        String getPassword = etPassword.getText().toString();
 
         switch (view.getId())
         {

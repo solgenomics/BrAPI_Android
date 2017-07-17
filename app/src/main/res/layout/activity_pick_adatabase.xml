@@ -30,7 +30,7 @@
         android:layout_marginTop="451dp"
         android:onClick="selectedDeleteADatabase"
         android:text="Delete Database"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,65 +47,38 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias=".904"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="430dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="386dp"
+        android:layout_height="372dp"
+        android:layout_marginTop="65dp"
         android:orientation="vertical"
         android:weightSum="1"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="385dp"
             android:layout_height="320dp"
             android:layout_marginTop="5dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_weight="0.25">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/LayoutOfButtonCreate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="-30dp"
                 android:orientation="vertical"
                 android:weightSum="1">
 
-                <Button
-                    android:id="@+id/CassavaDatabase"
-                    style="@style/pickaDatabase_button_Style"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="0.28"
-                    android:onClick="selectCassavaDatabase"
-                    android:text="Cassava"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/MusaDatabase"
-                    style="@style/pickaDatabase_button_Style"
-                    android:onClick="selectMusaDatabase"
-                    android:text="Musa"
-                    app:layout_constraintTop_toBottomOf="@+id/CassavaDatabase" />
-
-                <Button
-                    android:id="@+id/SweetPotatoDatabase"
-                    style="@style/pickaDatabase_button_Style"
-                    android:onClick="selectSweetPotatoDatabase"
-                    android:text="Sweet Potato" />
-
-                <Button
-                    android:id="@+id/YamDatabase"
-                    style="@style/pickaDatabase_button_Style"
-                    android:onClick="selectYamDatabase"
-                    android:text="Yam" />
 
             </LinearLayout>
 

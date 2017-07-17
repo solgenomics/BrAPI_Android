@@ -84,5 +84,6 @@ class MyJavaScriptInterface{
             Toast toast = Toast.makeText(ctx, end1, duration);
             toast.show();
         }
+
     }
 }
