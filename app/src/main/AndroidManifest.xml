@@ -12,43 +12,55 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginInPage">
+        <activity
+            android:name=".LoginInPage"
+            android:label="BrAPI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".PickADatabase"
-            android:parentActivityName=".MainActivity" />
+            android:label="Pick A Database" />
+
         <activity
             android:name=".SelectACategory"
+            android:label="Pick A Category"
             android:parentActivityName=".PickADatabase" />
-        <activity
-            android:name=".CallToURL"
-            android:parentActivityName=".SearchADatabase" />
-        <activity
-            android:name=".SearchADatabase"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".MainActivity" />
-        <activity
-            android:name=".Register"
-            android:parentActivityName=".LoginInPage" />
-        <activity
-            android:name=".AddADatabase"
-            android:parentActivityName=".PickADatabase" />
-        <activity android:name=".WebViewActivity" />
+
         <activity
             android:name=".RemoveADatabase"
+            android:label="Remove A Database"
+            android:parentActivityName=".PickADatabase"/>
+
+        <activity
+            android:name=".CallToURL"
+            android:label=" "
+            android:parentActivityName=".SearchADatabase" />
+
+        <activity
+            android:name=".SearchADatabase"
+            android:label="Seach A Database"
+            android:parentActivityName=".MainActivity" />
+
+        <activity android:name=".MainActivity" />
+
+        <activity
+            android:name=".Register"
+            android:label="Register"
+            android:parentActivityName=".LoginInPage" />
+
+        <activity
+            android:name=".AddADatabase"
+            android:label="Create A Database"
             android:parentActivityName=".PickADatabase" />
+
         <activity
-            android:name=".WebViewRegister" />
-        <activity
-            android:name=".WebViewLogin"/>
-        <activity
-            android:name=".POSTToLogin"/>
+            android:name=".SpecifyRec"
+            android:label="Specify Content"
+            android:parentActivityName=".CallToURL" />
     </application>
 
 </manifest>

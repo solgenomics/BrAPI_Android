@@ -1,29 +1,74 @@
 package com.example.nicolas.brapi;
 
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.UserHandle;
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
+import android.support.annotation.StringDef;
+import android.support.annotation.StyleRes;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-
+import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
-
 import static android.content.ContentValues.TAG;
 
 public class CallToURL extends AppCompatActivity
 {
 
-    ProgressBar progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,10 +76,9 @@ public class CallToURL extends AppCompatActivity
         setContentView(R.layout.activity_call_to_url);
 
         SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
-        String CurrentSelectDatabase = prefs.getString("SelectedDatabase", "No Database Selected");
+        final String CurrentSelectDatabase = prefs.getString("SelectedDatabase", "No Database Selected");
+        final String CurrentDataCall = prefs.getString("CurrentDataCall", "No Call Selected");
 
-        Intent intent = getIntent();
-        String CurrentDataCall = intent.getStringExtra(SelectACategory.CurrentDataCall);
 
         MyTaskParams params = new MyTaskParams(CurrentSelectDatabase, CurrentDataCall);
         CallToDatabase myTask = new CallToDatabase();
@@ -51,10 +95,12 @@ public class CallToURL extends AppCompatActivity
         }
         //---------------------------------------------------------
 
-        progress = (ProgressBar) findViewById(R.id.progressBar);
-
     }
-
+    public void onButtonSpecify(View view)
+    {
+        Intent intent = new Intent(this, SpecifyRec.class);
+        startActivity(intent);
+    }
 
 
     public static class MyTaskParams
@@ -67,7 +113,6 @@ public class CallToURL extends AppCompatActivity
             this.Select = Select;
             this.Call = Call;
         }
-
     }
 
     private class CallToDatabase extends AsyncTask<MyTaskParams, Void, String>
@@ -79,13 +124,34 @@ public class CallToURL extends AppCompatActivity
             String CurrentDatabase = params[0].Select;
             String CurrentDataCall = params[0].Call;
 
-            Log.d(TAG, CurrentDatabase);
+
+
             try
             {
-                URL url = new URL(CurrentDatabase+CurrentDataCall);
-                Log.d(TAG,CurrentDatabase+CurrentDataCall);
-                HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
+                String builtUrl = CurrentDatabase+CurrentDataCall+"?";
+                SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
+                String ArrayParameters = prefs.getString("ListArrayParameters", "No Parameters");
+                String[] ListOfArraysParams = {};
+                String[] ListOfEditText = {};
+                try {
+                    JSONArray parametersArray = new JSONArray(ArrayParameters);
+                    for (int i = 0; i < parametersArray.length(); i ++)
+                    {
+                        String paramKey = parametersArray.getString(i);
+                        //ListOfArraysParams[i] = someValue;
 
+                        String textValue = prefs.getString(paramKey, "");
+
+                        builtUrl += "&"+paramKey+"="+textValue;
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d(TAG,builtUrl);
+                URL url = new URL(builtUrl);
+                HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try
                 {
@@ -97,7 +163,7 @@ public class CallToURL extends AppCompatActivity
                         stringBuilder.append(line).append("\n");
                     }
                     bufferedReader.close();
-                    Log.d(TAG, stringBuilder.toString());
+
                     return stringBuilder.toString();
 
                 }finally {
@@ -107,23 +173,111 @@ public class CallToURL extends AppCompatActivity
             } catch (Exception e) {
                 return null;
             }
-
         }
 
         @Override
         protected void onPostExecute(String response)
         {
 
+            String StringBufferData = "";
             if(response == null)
             {
                 response = "THERE WAS AN ERROR";
             }
             TextView txt = (TextView) findViewById(R.id.germplasmSearchResult);
-            txt.setText(response);
+            txt.setText(null);
 
-            Log.d(TAG, response);
+            TextView pageSize = (TextView) findViewById(R.id.pageSize);
+            TextView currentPage = (TextView) findViewById(R.id.currentPage);
+            TextView totalPages = (TextView) findViewById(R.id.totalPages);
+            TextView totalCount = (TextView) findViewById(R.id.totalCount);
+
+            LinearLayout myLayout = (LinearLayout) findViewById(R.id.ListTextViews);
+
+            JSONObject jObj = null;
+            try {
+                jObj = new JSONObject(response);
+
+                JSONObject metadata = jObj.getJSONObject("metadata");
+                JSONArray status = metadata.getJSONArray("status");
+                JSONArray datafiles = metadata.getJSONArray("datafiles");
+                JSONObject pagination = metadata.getJSONObject("pagination");
+
+                JSONObject results = jObj.getJSONObject("result");
+                JSONArray data = results.getJSONArray("data");
+
+                String Something = "";
+                String StringPageSuff = "";
+
+                pageSize.setText("pageSize" + ": " + pagination.get("pageSize"));
+                currentPage.setText("currentPage" + ": " + pagination.get("currentPage"));
+                totalPages.setText("totalPages" + ": " + pagination.get("totalPages"));
+                totalCount.setText("totalCount" + ": " + pagination.get("totalCount"));
+
+                LinearLayout linearLayoutwithStuff = (LinearLayout) findViewById(R.id.linearLayoutwithStuff);
+                linearLayoutwithStuff.setBackgroundResource(R.drawable.boarder_style);
+                linearLayoutwithStuff.setPadding(10,0,0,0);
+
+                for (int i = 0; i < data.length(); i ++)
+                {
+                    final LinearLayout aNewLinLayout = new LinearLayout(getApplicationContext());
+                    aNewLinLayout.setOrientation(LinearLayout.VERTICAL);
+                    aNewLinLayout.setBackgroundResource(R.drawable.boarder_style);
+
+
+                    JSONObject temp = data.getJSONObject(i);
+
+
+                    for(Iterator<String> iter = temp.keys();iter.hasNext();) {
+                        final LinearLayout aNewLinLayoutHoriz = new LinearLayout(getApplicationContext());
+                        aNewLinLayoutHoriz.setOrientation(LinearLayout.HORIZONTAL);
+
+                        final TextView theOtherText = new TextView(getApplicationContext());
+                        final TextView rowTextView = new TextView(getApplicationContext());
+
+                        String key = iter.next();
+                        String objValue = "";
+                        if(temp.get(key).toString().equals("null") || temp.get(key).toString().equals("NA/NA") || temp.get(key).toString().equals("[]")
+                                || temp.get(key).toString().equals("") || temp.get(key).toString().equals("{}"))
+                        {
+
+                        }
+                        else
+                        {
+                            try {
+                                Object value = temp.get(key);
+                                objValue = temp.get(key).toString();
+                                Something += key + ": " + value + "\n";
+                            } catch (JSONException e) {
+                                // Something went wrong!
+                            }
+                            rowTextView.setText(key + ": ");
+                            theOtherText.setText(objValue);
+
+                            aNewLinLayoutHoriz.addView(rowTextView);
+                            aNewLinLayoutHoriz.addView(theOtherText);
+
+                            aNewLinLayout.addView(aNewLinLayoutHoriz);
+                        }
+
+                    }
+                    myLayout.addView(aNewLinLayout);
+
+
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) aNewLinLayout.getLayoutParams();
+                    params.setMargins(0, 0, 0, 20);
+                    aNewLinLayout.setPadding(10,0,0,10);
+                    aNewLinLayout.setLayoutParams(params);
+
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
-
 
 }

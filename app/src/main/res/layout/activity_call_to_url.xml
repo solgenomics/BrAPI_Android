@@ -13,35 +13,106 @@
     tools:context="com.example.nicolas.brapi.CallToURL"
     android:orientation="vertical">
 
+
+    <Button
+        android:id="@+id/btSpecify"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Specify here!"
+        style="@style/pickADatabase_smallButton"
+        android:onClick="onButtonSpecify"
+        android:layout_marginBottom="5dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="100dp"
+        android:id="@+id/scrollView2"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayoutwithStuff"
+        android:layout_below="@+id/btSpecify"
+        android:layout_alignParentEnd="true">
+
 
         <LinearLayout
+            android:id="@+id/ListTextViews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="1"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/scrollView2"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
             android:padding="5dp"
-            android:background="@color/colorPrimaryDark">
+            android:weightSum="1">
+
 
             <TextView
                 android:id="@+id/germplasmSearchResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/Description"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+
+        android:id="@+id/linearLayoutwithStuff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_weight="0.28"
+            android:orientation="horizontal"
+
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/currentPage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
                 android:textColor="#fff"/>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="12dp"
+            <TextView
+                android:id="@+id/pageSize"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.02" />
+                android:layout_weight="0.5"
+                android:textColor="#fff"/>
+
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_weight="0.28"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalPages"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:id="@+id/totalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:textColor="#fff"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

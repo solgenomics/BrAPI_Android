@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import static android.content.ContentValues.TAG;
 
 public class SearchADatabase extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     Spinner spinner, spinner2;
@@ -64,8 +63,6 @@ public class SearchADatabase extends AppCompatActivity implements AdapterView.On
         Intent GetCrop = new Intent(this, CallToURL.class);
         GetCrop.putExtra(StringData, StringRestofData);
 
-
-        Log.d(TAG, StringData + StringRestofData);
         startActivity(GetCrop);
     }
 }

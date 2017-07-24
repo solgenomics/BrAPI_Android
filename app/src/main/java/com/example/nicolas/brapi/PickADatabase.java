@@ -2,6 +2,7 @@ package com.example.nicolas.brapi;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,11 +25,11 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static android.content.ContentValues.TAG;
 import static android.support.constraint.R.id.parent;
 
 public class PickADatabase extends AppCompatActivity
 {
+    Button myButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,10 +46,10 @@ public class PickADatabase extends AppCompatActivity
         Intent intent = new Intent(this, AddADatabase.class);
         startActivity(intent);
     }
-    public void selectedDeleteADatabase(View view)
+    public void selectedRemoveADatabase(View view)
     {
-        Intent intent = new Intent(this, RemoveADatabase.class);
-        startActivity(intent);
+        Intent intent2 = new Intent(this, RemoveADatabase.class);
+        startActivity(intent2);
     }
 
     public class retreiveDatabaselist extends AsyncTask<Void, Void, String>
@@ -71,7 +74,7 @@ public class PickADatabase extends AppCompatActivity
                         stringBuilder.append(line).append("\n");
                     }
                     bufferedReader.close();
-                    Log.d(TAG, stringBuilder.toString());
+
                     return stringBuilder.toString();
 
                 }finally {
@@ -96,15 +99,13 @@ public class PickADatabase extends AppCompatActivity
 
                 for (int i = 0; i < jArr.length(); i++) {
                     JSONArray databaseArray = jArr.getJSONArray(i);
-                    String DatabaseName = databaseArray.getString(0);
+                    final String DatabaseName = databaseArray.getString(0);
                     final String DatabaseURL = databaseArray.getString(1);
 
                     //button
-                    Button myButton = new Button(getApplicationContext());
+                    myButton = new Button(getApplicationContext());
                     myButton.setText(DatabaseName);
                     myButton.setId(R.id.DatabaseName);
-
-                    Log.d(TAG, DatabaseName);
 
                     LinearLayout eleven = (LinearLayout) findViewById(R.id.LayoutOfButtonCreate);
                     ConstraintLayout.LayoutParams twelve = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
@@ -113,6 +114,9 @@ public class PickADatabase extends AppCompatActivity
                     myButton.setBackgroundResource(R.drawable.createdbutton_style);
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myButton.getLayoutParams();
                     params.setMargins(25, 60, 25, 5); //left, top, right, bottom
+                    myButton.setPadding(0,40,0,40);
+                    myButton.setTextColor(Color.BLACK);
+
                     myButton.setLayoutParams(params);
 
                     //attach onClickListener
@@ -122,7 +126,7 @@ public class PickADatabase extends AppCompatActivity
                         public void onClick(View view) {
                             SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
                             editor.putString("SelectedDatabase", DatabaseURL);
-
+                            editor.putString("SelectedDatabaseName", DatabaseName);
                             editor.apply();
 
                             Intent GetCrop = new Intent(getApplicationContext(), SelectACategory.class);

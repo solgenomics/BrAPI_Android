@@ -2,6 +2,7 @@ package com.example.nicolas.brapi;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
@@ -26,7 +27,6 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static android.content.ContentValues.TAG;
 import static android.support.constraint.R.id.parent;
 
 public class RemoveADatabase extends AppCompatActivity
@@ -56,7 +56,6 @@ public class RemoveADatabase extends AppCompatActivity
                 SharedPreferences editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
                 String variable = editor.getString("accessToken", "0");
 
-
                 httpURL.setRequestMethod("POST");
                 String data = URLEncoder.encode("databaseName", "UTF-8") + "=" + URLEncoder.encode(strings[0], "UTF-8");
                 data += "&" + URLEncoder.encode("accessToken", "UTF-8") + "=" + URLEncoder.encode(variable, "UTF-8");
@@ -76,7 +75,7 @@ public class RemoveADatabase extends AppCompatActivity
                         stringBuilder.append(line).append("\n");
                     }
                     bufferedReader.close();
-                    Log.d(TAG, stringBuilder.toString());
+
                     return stringBuilder.toString();
 
                 }finally {
@@ -91,11 +90,10 @@ public class RemoveADatabase extends AppCompatActivity
         @Override
         protected void onPostExecute(String response){
             Intent intent = new Intent(getApplicationContext(), PickADatabase.class);
-            Toast.makeText(RemoveADatabase.this, "Database DELETED", Toast.LENGTH_LONG).show();
+            Toast.makeText(RemoveADatabase.this, "Database REMOVED", Toast.LENGTH_LONG).show();
             startActivity(intent);
         }
     }
-
 
     //------------------------------------------------------------------------------------------------------------------------
     public class retreiveDatabaselist extends AsyncTask<Void, Void, String>
@@ -120,7 +118,7 @@ public class RemoveADatabase extends AppCompatActivity
                         stringBuilder.append(line).append("\n");
                     }
                     bufferedReader.close();
-                    Log.d(TAG, stringBuilder.toString());
+
                     return stringBuilder.toString();
 
                 }finally {
@@ -132,7 +130,6 @@ public class RemoveADatabase extends AppCompatActivity
             }
 
         }
-
 
         @Override
         protected void onPostExecute(String response){
@@ -154,8 +151,6 @@ public class RemoveADatabase extends AppCompatActivity
                     myButton.setText(DatabaseName);
                     myButton.setId(R.id.DatabaseName);
 
-                    Log.d(TAG, DatabaseName);
-
                     LinearLayout eleven = (LinearLayout) findViewById(R.id.LayoutOfButtonDelete);
                     ConstraintLayout.LayoutParams twelve = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     eleven.addView(myButton, twelve);
@@ -163,6 +158,8 @@ public class RemoveADatabase extends AppCompatActivity
                     myButton.setBackgroundResource(R.drawable.createdbutton_style);
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myButton.getLayoutParams();
                     params.setMargins(25, 60, 25, 5); //left, top, right, bottom
+                    myButton.setPadding(0,40,0,40);
+                    myButton.setTextColor(Color.BLACK);
                     myButton.setLayoutParams(params);
 
                     //attach onClickListener
@@ -177,7 +174,6 @@ public class RemoveADatabase extends AppCompatActivity
                     });
 
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
