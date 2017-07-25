@@ -68,6 +68,8 @@ import static android.content.ContentValues.TAG;
 public class CallToURL extends AppCompatActivity
 {
 
+    EditText et1;
+    EditText et2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,6 +101,12 @@ public class CallToURL extends AppCompatActivity
     public void onButtonSpecify(View view)
     {
         Intent intent = new Intent(this, SpecifyRec.class);
+        startActivity(intent);
+    }
+
+    public void onPageSizeChange(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), changePageSize.class);
         startActivity(intent);
     }
 
@@ -228,7 +236,8 @@ public class CallToURL extends AppCompatActivity
                     JSONObject temp = data.getJSONObject(i);
 
 
-                    for(Iterator<String> iter = temp.keys();iter.hasNext();) {
+                    for(Iterator<String> iter = temp.keys();iter.hasNext();)
+                    {
                         final LinearLayout aNewLinLayoutHoriz = new LinearLayout(getApplicationContext());
                         aNewLinLayoutHoriz.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -258,9 +267,20 @@ public class CallToURL extends AppCompatActivity
                             aNewLinLayoutHoriz.addView(theOtherText);
 
                             aNewLinLayout.addView(aNewLinLayoutHoriz);
-                        }
 
+                        }
+                        aNewLinLayout.setId(i);
                     }
+                    aNewLinLayout.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), ExtraSpecs.class);
+                            startActivity(intent);
+                        }
+                    });
+
+
                     myLayout.addView(aNewLinLayout);
 
 
@@ -278,6 +298,14 @@ public class CallToURL extends AppCompatActivity
             }
 
         }
+
+        public void LayoutClick(View view)
+        {
+            Intent intent = new Intent(getApplicationContext(), changePageSize.class);
+            startActivity(intent);
+        }
+
+
     }
 
 }

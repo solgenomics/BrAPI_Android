@@ -24,6 +24,8 @@
 
     <Button
         android:id="@+id/SearchButton"
+        android:text="Generate Data"
+        style="@style/pickADatabase_smallButton"
         android:layout_width="250dp"
         android:layout_height="70dp"
         android:onClick="CallToURL"

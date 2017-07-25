@@ -17,50 +17,44 @@
             android:label="BrAPI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".PickADatabase"
             android:label="Pick A Database" />
-
         <activity
             android:name=".SelectACategory"
             android:label="Pick A Category"
             android:parentActivityName=".PickADatabase" />
-
         <activity
             android:name=".RemoveADatabase"
             android:label="Remove A Database"
-            android:parentActivityName=".PickADatabase"/>
-
+            android:parentActivityName=".PickADatabase" />
         <activity
             android:name=".CallToURL"
             android:label=" "
-            android:parentActivityName=".SearchADatabase" />
-
-        <activity
-            android:name=".SearchADatabase"
-            android:label="Seach A Database"
-            android:parentActivityName=".MainActivity" />
-
-        <activity android:name=".MainActivity" />
+            android:parentActivityName=".SelectACategory" />
 
         <activity
             android:name=".Register"
             android:label="Register"
             android:parentActivityName=".LoginInPage" />
-
         <activity
             android:name=".AddADatabase"
             android:label="Create A Database"
             android:parentActivityName=".PickADatabase" />
-
         <activity
             android:name=".SpecifyRec"
             android:label="Specify Content"
             android:parentActivityName=".CallToURL" />
+        <activity android:name=".ExtraSpecs" />
+
+        <activity
+            android:name=".changePageSize"
+            android:label="Change Page Size"
+            android:parentActivityName=".CallToURL"/>
     </application>
 
 </manifest>
