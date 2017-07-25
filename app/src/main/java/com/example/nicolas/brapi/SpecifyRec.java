@@ -45,6 +45,7 @@ public class SpecifyRec extends AppCompatActivity{
         FirstLin = (LinearLayout) findViewById(R.id.SpecifyLinearLayout);
         FirstLin.setOrientation(LinearLayout.VERTICAL);
 
+        Log.d(TAG,"HEREHERHE");
         retreiveDatabaselist retreiveDatabaselist = new retreiveDatabaselist();
         retreiveDatabaselist.execute();
     }
@@ -77,9 +78,6 @@ public class SpecifyRec extends AppCompatActivity{
         Intent intent = new Intent(this, CallToURL.class);
         startActivity(intent);
     }
-
-
-
     public class retreiveDatabaselist extends AsyncTask<Void, Void, String>
     {
 
@@ -93,8 +91,10 @@ public class SpecifyRec extends AppCompatActivity{
                 SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
                 String CurrentDataCall = prefs.getString("CurrentDataCall", "");
 
-                String Something = CurrentDataCall.toString();
+                String Something = CurrentDataCall;
 
+                if(!CurrentDataCall.equals(null))
+                {
                    if(Something.equals("brapi/v1/traits"))
                    {
                        Something="traits";
@@ -119,6 +119,7 @@ public class SpecifyRec extends AppCompatActivity{
                    {
                         Something="studies-search";
                    }
+                }
 
 
 
@@ -136,7 +137,7 @@ public class SpecifyRec extends AppCompatActivity{
                         stringBuilder.append(line).append("\n");
                     }
                     bufferedReader.close();
-
+                    Log.d(TAG,stringBuilder.toString());
                     return stringBuilder.toString();
 
                 }finally {
@@ -151,6 +152,7 @@ public class SpecifyRec extends AppCompatActivity{
         @Override
         protected void onPostExecute(String response)
         {
+            Log.d(TAG, response);
             JSONObject jObj = null;
 
 

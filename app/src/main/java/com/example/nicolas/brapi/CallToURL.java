@@ -1,64 +1,22 @@
 package com.example.nicolas.brapi;
 
-import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.IntentSender;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.UserHandle;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
-import android.support.annotation.StringDef;
-import android.support.annotation.StyleRes;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Iterator;
@@ -125,7 +83,6 @@ public class CallToURL extends AppCompatActivity
 
     private class CallToDatabase extends AsyncTask<MyTaskParams, Void, String>
     {
-
         @Override
         protected String doInBackground(MyTaskParams...params)
         {
@@ -134,53 +91,72 @@ public class CallToURL extends AppCompatActivity
 
 
 
-            try
-            {
-                String builtUrl = CurrentDatabase+CurrentDataCall+"?";
+            try {
+                String builtUrl = CurrentDatabase + CurrentDataCall + "?";
                 SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
                 String ArrayParameters = prefs.getString("ListArrayParameters", "No Parameters");
-                String[] ListOfArraysParams = {};
-                String[] ListOfEditText = {};
+
+                SharedPreferences pageSizeChange = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
+                String PageSizeInfo = pageSizeChange.getString("pageSizePrefs", "");
+
                 try {
                     JSONArray parametersArray = new JSONArray(ArrayParameters);
-                    for (int i = 0; i < parametersArray.length(); i ++)
-                    {
+                    for (int i = 0; i < parametersArray.length(); i++) {
                         String paramKey = parametersArray.getString(i);
                         //ListOfArraysParams[i] = someValue;
 
                         String textValue = prefs.getString(paramKey, "");
 
-                        builtUrl += "&"+paramKey+"="+textValue;
+                        builtUrl += "&" + paramKey + "=" + textValue;
 
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                Log.d(TAG,builtUrl);
-                URL url = new URL(builtUrl);
-                HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
+                /*
+                try {
 
-                try
+                JSONArray parametersArray = new JSONArray(PageSizeInfo);
+                for (int i = 0; i < parametersArray.length(); i ++)
                 {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while((line = bufferedReader.readLine()) != null)
-                    {
-                        stringBuilder.append(line).append("\n");
+                    String paramKey = parametersArray.getString(i);
+                    //ListOfArraysParams[i] = someValue;
+
+                    String textValue = pageSizeChange.getString(paramKey, "");
+                    if(!textValue.equals("null"))
+                        {
+                            builtUrl += "&" + paramKey + "=" + textValue;
+                        }
                     }
-                    bufferedReader.close();
+                } catch (JSONException e) {
+                e.printStackTrace();
+                 }
+                 */
 
-                    return stringBuilder.toString();
 
-                }finally {
-                    httpURL.disconnect();
+                    Log.d(TAG, builtUrl);
+                    URL url = new URL(builtUrl);
+                    HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
+
+                    try {
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            stringBuilder.append(line).append("\n");
+                        }
+                        bufferedReader.close();
+
+                        return stringBuilder.toString();
+
+                    } finally {
+                        httpURL.disconnect();
+                    }
+
+                } catch (Exception e) {
+                    return null;
                 }
-
-            } catch (Exception e) {
-                return null;
-            }
         }
 
         @Override
@@ -236,6 +212,8 @@ public class CallToURL extends AppCompatActivity
                     JSONObject temp = data.getJSONObject(i);
 
 
+                    String currentDetailCall = "";
+
                     for(Iterator<String> iter = temp.keys();iter.hasNext();)
                     {
                         final LinearLayout aNewLinLayoutHoriz = new LinearLayout(getApplicationContext());
@@ -257,6 +235,31 @@ public class CallToURL extends AppCompatActivity
                                 Object value = temp.get(key);
                                 objValue = temp.get(key).toString();
                                 Something += key + ": " + value + "\n";
+
+                                if (key.equals("germplasmDbId")){
+
+                                    //SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
+                                    //editor.putString("currentDetailCall", "brapi/v1/germplasm/"+objValue);
+                                    //editor.apply();
+
+                                    currentDetailCall = "brapi/v1/germplasm/"+objValue;
+                                }
+
+                                else if (key.equals("studyDbId")){
+
+                                    currentDetailCall =  "brapi/v1/studies/" + objValue;
+                                }
+
+                                else if (key.equals("trialDbId")){
+
+                                    currentDetailCall = "brapi/v1/trials/" + objValue;
+                                }
+
+                                else if (key.equals("traitDbId")){
+
+                                    currentDetailCall = "brapi/v1/traits/" + objValue;
+                                }
+
                             } catch (JSONException e) {
                                 // Something went wrong!
                             }
@@ -271,14 +274,20 @@ public class CallToURL extends AppCompatActivity
                         }
                         aNewLinLayout.setId(i);
                     }
+
+                    final String finalCurrentDetailCall = currentDetailCall;
                     aNewLinLayout.setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getApplicationContext(), ExtraSpecs.class);
+
+                            Intent intent = new Intent(getApplicationContext(), CallToURLOnClick.class);
+                            intent.putExtra("currentDetailCall", finalCurrentDetailCall);
                             startActivity(intent);
                         }
                     });
+
+
 
 
                     myLayout.addView(aNewLinLayout);

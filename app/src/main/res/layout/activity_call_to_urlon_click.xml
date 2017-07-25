@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nicolas.brapi.ExtraSpecs"
+    tools:context="com.example.nicolas.brapi.CallToURLOnClick"
     android:background="@color/colorPrimaryDark">
 
     <ScrollView
@@ -13,8 +13,11 @@
         android:layout_margin="10dp">
 
         <LinearLayout
+            android:id="@+id/OnClickContent"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
 
 
 

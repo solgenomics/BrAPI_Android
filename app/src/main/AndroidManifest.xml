@@ -49,11 +49,15 @@
             android:name=".SpecifyRec"
             android:label="Specify Content"
             android:parentActivityName=".CallToURL" />
-        <activity android:name=".ExtraSpecs" />
 
         <activity
             android:name=".changePageSize"
             android:label="Change Page Size"
+            android:parentActivityName=".CallToURL"/>
+
+        <activity
+            android:name=".CallToURLOnClick"
+            android:label="Full Data"
             android:parentActivityName=".CallToURL"/>
     </application>
 

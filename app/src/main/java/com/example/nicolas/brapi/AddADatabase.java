@@ -105,7 +105,7 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(String response)
         {
             Intent intent = new Intent(getApplicationContext(), PickADatabase.class);
-            Toast.makeText(AddADatabase.this, "Database CREATED", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddADatabase.this, "Database ADDED", Toast.LENGTH_LONG).show();
             startActivity(intent);
         }
     }
