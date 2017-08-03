@@ -232,7 +232,9 @@ public class CallToURL extends AppCompatActivity {
                                     // Something went wrong!
                                 }
                                 rowTextView.setText("  "+key + ": ");
+                                rowTextView.setTextColor(Color.WHITE);
                                 theOtherText.setText(objValue);
+                                theOtherText.setTextColor(Color.WHITE);
 
                                 aNewLinLayoutHoriz.addView(rowTextView);
                                 aNewLinLayoutHoriz.addView(theOtherText);

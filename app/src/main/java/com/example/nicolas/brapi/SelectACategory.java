@@ -9,12 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -43,6 +45,8 @@ public class SelectACategory extends AppCompatActivity {
     String callValue;
     String CurrentSelectDatabase;
 
+    ScrollView scrollView;
+
 
     public static final String CurrentDataCall = "com.example.nicolas.brapi";
 
@@ -53,6 +57,16 @@ public class SelectACategory extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
         CurrentSelectDatabase = prefs.getString("SelectedDatabase", "https://cassavabase.org/");
         callValue = prefs.getString("callValue", "");
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+
+        scrollView = (ScrollView) findViewById(R.id.PickACategoryScrollView);
+        scrollView.setMinimumHeight(height - 10);
+        scrollView.setMinimumWidth(width-30);
 
         TextView txt = (TextView) findViewById(R.id.CurrentDatabase);
         txt.setText("Database Picked: " + CurrentSelectDatabase);
@@ -134,16 +148,15 @@ public class SelectACategory extends AppCompatActivity {
                 CategoryButton.setText(replacemment);
 
                 LinearLayout eleven = (LinearLayout) findViewById(R.id.LLPickACaegory);
-                ConstraintLayout.LayoutParams twelve = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                eleven.addView(CategoryButton, twelve);
 
                 CategoryButton.setBackgroundResource(R.drawable.createdbutton_style);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) CategoryButton.getLayoutParams();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.setMargins(25, 60, 25, 5); //left, top, right, bottom
                 CategoryButton.setPadding(0, 40, 0, 40);
                 CategoryButton.setTextColor(Color.BLACK);
 
                 CategoryButton.setLayoutParams(params);
+                eleven.addView(CategoryButton);
 
                 //attach onClickListener locations
                 if(replacemment.equals("locations"))
