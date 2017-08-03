@@ -1,5 +1,6 @@
 package com.example.nicolas.brapi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -9,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,9 +37,11 @@ public class LoginInPage extends AppCompatActivity implements View.OnClickListen
     TextView tvRegister;
     String accessToken;
 
-    public static final String Username = "PostToBrapiUserInput";
-    public static final String Password = "PostToBrapiPassInput";
-
+    private String username,password;
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +56,16 @@ public class LoginInPage extends AppCompatActivity implements View.OnClickListen
         bLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
 
-    }
+        saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
 
-    @Override
-    public void onClick(View view) {
-
-
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            etUserName.setText(loginPreferences.getString("username", ""));
+            etPassword.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
+        }
         // Connectivity Verification -----------------------------
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cManager.getActiveNetworkInfo();
@@ -66,14 +75,26 @@ public class LoginInPage extends AppCompatActivity implements View.OnClickListen
         {
             Toast.makeText(this, "Network is not available", Toast.LENGTH_SHORT).show();
         }
-        //---------------------------------------------------------
+    }
 
-        //Intent intent1 = new Intent(this, MainActivity.class);
-        //startActivity(intent1);
+    @Override
+    public void onClick(View view) {
 
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etUserName.getWindowToken(), 0);
 
+        username = etUserName.getText().toString();
+        password = etPassword.getText().toString();
 
-
+        if (saveLoginCheckBox.isChecked()) {
+            loginPrefsEditor.putBoolean("saveLogin", true);
+            loginPrefsEditor.putString("username", username);
+            loginPrefsEditor.putString("password", password);
+            loginPrefsEditor.commit();
+        } else {
+            loginPrefsEditor.clear();
+            loginPrefsEditor.commit();
+        }
 
         String getUserName = etUserName.getText().toString();
         String getPassword = etPassword.getText().toString();
@@ -84,13 +105,14 @@ public class LoginInPage extends AppCompatActivity implements View.OnClickListen
                 MyTaskParams params = new MyTaskParams(getUserName, getPassword);
                 CallToDatabase myTask = new CallToDatabase();
                 myTask.execute(params);
-
                 break;
+
             case R.id.tvRegister:
-                Intent intent2 = new Intent(this, Register.class);
-                startActivity(intent2);
+                Intent intent = new Intent(this, Register.class);
+                startActivity(intent);
                 break;
         }
+
     }
 
     public static class MyTaskParams

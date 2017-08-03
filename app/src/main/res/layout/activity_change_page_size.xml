@@ -17,17 +17,69 @@
 
         android:onClick="ChangePageSize"
 
-        android:layout_marginTop="36dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="67dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="368dp"
-        android:layout_height="300dp"
+        android:layout_width="348dp"
+        android:layout_height="252dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="206dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        tools:layout_editor_absoluteY="53dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ok"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="66dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.072"
+            android:weightSum="1">
+
+
+            <TextView
+                android:id="@+id/etPageSize"
+                android:layout_width="124dp"
+                android:layout_height="39dp"
+                android:text="pageSize:"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/ChangePageSize"
+                android:layout_width="131dp"
+                android:hint="Max: 100"
+                android:textColorHint="#808080"
+                android:textColor="#fff"
+                android:onClick="ChangePageSize"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/layoutCurrentPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/ok"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
@@ -45,22 +97,23 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="104dp"
+            android:layout_width="124dp"
             android:layout_height="39dp"
-            android:text="pageSize:"
+            android:text="currentPage:"
             android:textColor="#fff"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/ChangePageSize"
-            android:layout_width="131dp"
-            android:hint="Max: 100"
-            android:textColorHint="#fff"
-            android:textColor="#fff"
-            android:onClick="ChangePageSize"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/ChangeCurrentPage"
+                android:layout_width="131dp"
+                android:layout_height="wrap_content"
+                android:hint="Max: 100"
+                android:textColorHint="#808080"
+                android:onClick="ChangePageSize"
+                android:textColor="#fff"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

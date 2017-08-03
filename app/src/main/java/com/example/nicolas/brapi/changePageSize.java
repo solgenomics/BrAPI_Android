@@ -29,7 +29,10 @@ import static android.content.ContentValues.TAG;
 public class changePageSize extends AppCompatActivity {
 
     Button ok;
-    EditText et;
+    EditText etPageSize;
+    EditText etCurrentPage;
+    String pageSizeParams;
+    JSONArray jArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +40,23 @@ public class changePageSize extends AppCompatActivity {
         setContentView(R.layout.activity_change_page_size);
 
         ok = (Button) findViewById(R.id.ok);
-        et = (EditText) findViewById(R.id.ChangePageSize);
-    }
+        etPageSize = (EditText) findViewById(R.id.ChangePageSize);
+        etCurrentPage = (EditText) findViewById(R.id.ChangeCurrentPage);
+}
 
     public void ChangePageSize(View view)
     {
-        SharedPreferences.Editor editor = (SharedPreferences.Editor) getSharedPreferences("pageSize", MODE_PRIVATE);
-        editor.putString("pagesize", et.getText().toString());
-        editor.apply();
+        SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
 
+            try {
+                editor.putString("pageSize", etPageSize.getText().toString());
+                editor.putString("currentPage", etCurrentPage.getText().toString());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        editor.apply();
         Intent intent = new Intent(getApplicationContext(), CallToURL.class);
         startActivity(intent);
     }

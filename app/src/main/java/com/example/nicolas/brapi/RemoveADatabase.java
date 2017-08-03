@@ -146,33 +146,40 @@ public class RemoveADatabase extends AppCompatActivity
                     final String DatabaseName = databaseArray.getString(0);
                     final String DatabaseURL = databaseArray.getString(1);
 
-                    //button
-                    Button myButton = new Button(getApplicationContext());
-                    myButton.setText(DatabaseName);
-                    myButton.setId(R.id.DatabaseName);
+                    if(DatabaseURL.contains("cassavabase") || DatabaseURL.contains("sweetpotatobase") || DatabaseURL.contains("musabase")
+                            || DatabaseURL.contains("yambase"))
+                    {
 
-                    LinearLayout eleven = (LinearLayout) findViewById(R.id.LayoutOfButtonDelete);
-                    ConstraintLayout.LayoutParams twelve = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                    eleven.addView(myButton, twelve);
+                    }
+                    else
+                    {
+                        //button
+                        Button myButton = new Button(getApplicationContext());
+                        myButton.setText(DatabaseName);
+                        myButton.setId(R.id.DatabaseName);
 
-                    myButton.setBackgroundResource(R.drawable.createdbutton_style);
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myButton.getLayoutParams();
-                    params.setMargins(25, 60, 25, 5); //left, top, right, bottom
-                    myButton.setPadding(0,40,0,40);
-                    myButton.setTextColor(Color.BLACK);
-                    myButton.setLayoutParams(params);
+                        LinearLayout eleven = (LinearLayout) findViewById(R.id.LayoutOfButtonDelete);
+                        ConstraintLayout.LayoutParams twelve = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+                        eleven.addView(myButton, twelve);
 
-                    //attach onClickListener
-                    myButton.setOnClickListener(new View.OnClickListener(){
+                        myButton.setBackgroundResource(R.drawable.createdbutton_style);
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myButton.getLayoutParams();
+                        params.setMargins(25, 60, 25, 5); //left, top, right, bottom
+                        myButton.setPadding(0,40,0,40);
+                        myButton.setTextColor(Color.BLACK);
+                        myButton.setLayoutParams(params);
 
-                        @Override
-                        public void onClick(View view) {
-                            deleteDatabase deleteDatabase = new deleteDatabase();
-                            deleteDatabase.execute(DatabaseName);
+                        //attach onClickListener
+                        myButton.setOnClickListener(new View.OnClickListener(){
 
-                        }
-                    });
+                            @Override
+                            public void onClick(View view) {
+                                deleteDatabase deleteDatabase = new deleteDatabase();
+                                deleteDatabase.execute(DatabaseName);
 
+                            }
+                        });
+                    }
                 }
 
             } catch (JSONException e) {

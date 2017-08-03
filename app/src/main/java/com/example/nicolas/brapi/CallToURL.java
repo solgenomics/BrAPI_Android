@@ -2,6 +2,8 @@ package com.example.nicolas.brapi;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -13,25 +15,27 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Iterator;
+
 import javax.net.ssl.HttpsURLConnection;
+
 import static android.content.ContentValues.TAG;
 
-public class CallToURL extends AppCompatActivity
-{
+public class CallToURL extends AppCompatActivity {
 
     EditText et1;
     EditText et2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_to_url);
 
@@ -47,57 +51,52 @@ public class CallToURL extends AppCompatActivity
         // Connectivity Verification -----------------------------
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cManager.getActiveNetworkInfo();
-        if(nInfo!=null && nInfo.isConnected())
-        {}
-        else
-        {
+        if (nInfo != null && nInfo.isConnected()) {
+        } else {
             Toast.makeText(this, "Network is not available", Toast.LENGTH_SHORT).show();
         }
         //---------------------------------------------------------
 
     }
-    public void onButtonSpecify(View view)
-    {
+
+    public void onButtonSpecify(View view) {
         Intent intent = new Intent(this, SpecifyRec.class);
         startActivity(intent);
     }
 
-    public void onPageSizeChange(View view)
-    {
+    public void onPageSizeChange(View view) {
         Intent intent = new Intent(getApplicationContext(), changePageSize.class);
         startActivity(intent);
     }
 
 
-    public static class MyTaskParams
-    {
+    //===============================================================================================================================================
+
+    public static class MyTaskParams {
         String Select;
         String Call;
 
-        MyTaskParams(String Select, String Call)
-        {
+        MyTaskParams(String Select, String Call) {
             this.Select = Select;
             this.Call = Call;
         }
     }
 
-    private class CallToDatabase extends AsyncTask<MyTaskParams, Void, String>
-    {
+    //===============================================================================================================================================
+    private class CallToDatabase extends AsyncTask<MyTaskParams, Void, String> {
         @Override
-        protected String doInBackground(MyTaskParams...params)
-        {
+        protected String doInBackground(MyTaskParams... params) {
             String CurrentDatabase = params[0].Select;
             String CurrentDataCall = params[0].Call;
 
 
-
             try {
-                String builtUrl = CurrentDatabase + CurrentDataCall + "?";
+                String builtUrl = CurrentDatabase + "brapi/v1/" + CurrentDataCall + "?";
                 SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
                 String ArrayParameters = prefs.getString("ListArrayParameters", "No Parameters");
 
-                SharedPreferences pageSizeChange = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
-                String PageSizeInfo = pageSizeChange.getString("pageSizePrefs", "");
+                String PageSizeInfo = prefs.getString("pageSize", "10");
+                String CurrentPageInfo = prefs.getString("currentPage", "0");
 
                 try {
                     JSONArray parametersArray = new JSONArray(ArrayParameters);
@@ -110,62 +109,50 @@ public class CallToURL extends AppCompatActivity
                         builtUrl += "&" + paramKey + "=" + textValue;
 
                     }
+
+                    if (!PageSizeInfo.equals("")) {
+                        builtUrl += "&" + "pageSize=" + PageSizeInfo;
+                    }
+                    if (!CurrentPageInfo.equals("")) {
+                        builtUrl += "&" + "page=" + CurrentPageInfo;
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                /*
+                Log.d(TAG, builtUrl);
+                URL url = new URL(builtUrl);
+                HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
+
+
+
                 try {
-
-                JSONArray parametersArray = new JSONArray(PageSizeInfo);
-                for (int i = 0; i < parametersArray.length(); i ++)
-                {
-                    String paramKey = parametersArray.getString(i);
-                    //ListOfArraysParams[i] = someValue;
-
-                    String textValue = pageSizeChange.getString(paramKey, "");
-                    if(!textValue.equals("null"))
-                        {
-                            builtUrl += "&" + paramKey + "=" + textValue;
-                        }
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
                     }
-                } catch (JSONException e) {
-                e.printStackTrace();
-                 }
-                 */
+                    bufferedReader.close();
 
+                    return stringBuilder.toString();
 
-                    Log.d(TAG, builtUrl);
-                    URL url = new URL(builtUrl);
-                    HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
-
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            stringBuilder.append(line).append("\n");
-                        }
-                        bufferedReader.close();
-
-                        return stringBuilder.toString();
-
-                    } finally {
-                        httpURL.disconnect();
-                    }
-
-                } catch (Exception e) {
-                    return null;
+                } finally {
+                    httpURL.disconnect();
                 }
+
+            } catch (Exception e) {
+                return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(String response)
-        {
+        protected void onPostExecute(String response) {
 
             String StringBufferData = "";
-            if(response == null)
-            {
+            if (response == null) {
                 response = "THERE WAS AN ERROR";
             }
             TextView txt = (TextView) findViewById(R.id.germplasmSearchResult);
@@ -199,119 +186,113 @@ public class CallToURL extends AppCompatActivity
                 totalCount.setText("totalCount" + ": " + pagination.get("totalCount"));
 
                 LinearLayout linearLayoutwithStuff = (LinearLayout) findViewById(R.id.linearLayoutwithStuff);
-                linearLayoutwithStuff.setBackgroundResource(R.drawable.boarder_style);
-                linearLayoutwithStuff.setPadding(10,0,0,0);
+                linearLayoutwithStuff.setBackgroundResource(R.drawable.rounded_corner_style);
+                linearLayoutwithStuff.setPadding(10, 0, 0, 0);
 
-                for (int i = 0; i < data.length(); i ++)
-                {
+                for (int i = 0; i < data.length(); i++) {
                     final LinearLayout aNewLinLayout = new LinearLayout(getApplicationContext());
                     aNewLinLayout.setOrientation(LinearLayout.VERTICAL);
                     aNewLinLayout.setBackgroundResource(R.drawable.boarder_style);
 
 
-                    JSONObject temp = data.getJSONObject(i);
+                    try {
+
+                        JSONObject temp = data.getJSONObject(i);
+                        SharedPreferences.Editor editor= getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
+                        String currentDetailCall = "";
+
+                        for (Iterator<String> iter = temp.keys(); iter.hasNext(); ) {
+                            final LinearLayout aNewLinLayoutHoriz = new LinearLayout(getApplicationContext());
+                            aNewLinLayoutHoriz.setOrientation(LinearLayout.HORIZONTAL);
+
+                            final TextView theOtherText = new TextView(getApplicationContext());
+                            final TextView rowTextView = new TextView(getApplicationContext());
+
+                            String key = iter.next();
+                            String objValue = "";
+                            if (temp.get(key).toString().equals("null") || temp.get(key).toString().equals("NA/NA") || temp.get(key).toString().equals("[]")
+                                    || temp.get(key).toString().equals("") || temp.get(key).toString().equals("{}")) {
+
+                            } else {
+                                try {
+                                    Object value = temp.get(key);
+                                    objValue = temp.get(key).toString();
+                                    Something += key + ": " + value + "\n";
 
 
-                    String currentDetailCall = "";
+                                    if (key.contains("DbId")) {
+                                        key = key.substring(0, key.length() - 4);
+                                        currentDetailCall = "brapi/v1/" + key + "/" + objValue;
+                                        editor.putString("StringObjValue", objValue);
+                                        editor.putString("StringKeyValue", key);
+                                        editor.apply();
+                                    }
 
-                    for(Iterator<String> iter = temp.keys();iter.hasNext();)
-                    {
+                                } catch (JSONException e) {
+                                    // Something went wrong!
+                                }
+                                rowTextView.setText("  "+key + ": ");
+                                theOtherText.setText(objValue);
+
+                                aNewLinLayoutHoriz.addView(rowTextView);
+                                aNewLinLayoutHoriz.addView(theOtherText);
+
+                                aNewLinLayout.addView(aNewLinLayoutHoriz);
+
+                            }
+                            aNewLinLayout.setId(i);
+                        }
+
+                        final String finalCurrentDetailCall = currentDetailCall;
+
+                        if (currentDetailCall.equals("")) {
+
+                        } else {
+                            aNewLinLayout.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View view) {
+
+                                    Intent intent = new Intent(getApplicationContext(), CallToURLOnClick.class);
+                                    intent.putExtra("currentDetailCall", finalCurrentDetailCall);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+
+
+                    } catch (JSONException e) {
+                        JSONArray temper = data.getJSONArray(i);
+
+
                         final LinearLayout aNewLinLayoutHoriz = new LinearLayout(getApplicationContext());
                         aNewLinLayoutHoriz.setOrientation(LinearLayout.HORIZONTAL);
 
-                        final TextView theOtherText = new TextView(getApplicationContext());
-                        final TextView rowTextView = new TextView(getApplicationContext());
 
-                        String key = iter.next();
-                        String objValue = "";
-                        if(temp.get(key).toString().equals("null") || temp.get(key).toString().equals("NA/NA") || temp.get(key).toString().equals("[]")
-                                || temp.get(key).toString().equals("") || temp.get(key).toString().equals("{}"))
-                        {
-
-                        }
-                        else
-                        {
-                            try {
-                                Object value = temp.get(key);
-                                objValue = temp.get(key).toString();
-                                Something += key + ": " + value + "\n";
-
-                                if (key.equals("germplasmDbId")){
-
-                                    //SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
-                                    //editor.putString("currentDetailCall", "brapi/v1/germplasm/"+objValue);
-                                    //editor.apply();
-
-                                    currentDetailCall = "brapi/v1/germplasm/"+objValue;
-                                }
-
-                                else if (key.equals("studyDbId")){
-
-                                    currentDetailCall =  "brapi/v1/studies/" + objValue;
-                                }
-
-                                else if (key.equals("trialDbId")){
-
-                                    currentDetailCall = "brapi/v1/trials/" + objValue;
-                                }
-
-                                else if (key.equals("traitDbId")){
-
-                                    currentDetailCall = "brapi/v1/traits/" + objValue;
-                                }
-
-                            } catch (JSONException e) {
-                                // Something went wrong!
-                            }
-                            rowTextView.setText(key + ": ");
-                            theOtherText.setText(objValue);
-
-                            aNewLinLayoutHoriz.addView(rowTextView);
+                        for (int k = 0; k < temper.length(); k++) {
+                            final TextView theOtherText = new TextView(getApplicationContext());
+                            theOtherText.setText(temper.toString(k));
                             aNewLinLayoutHoriz.addView(theOtherText);
-
-                            aNewLinLayout.addView(aNewLinLayoutHoriz);
-
                         }
-                        aNewLinLayout.setId(i);
+                        aNewLinLayout.addView(aNewLinLayoutHoriz);
+
+
                     }
-
-                    final String finalCurrentDetailCall = currentDetailCall;
-                    aNewLinLayout.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-
-                            Intent intent = new Intent(getApplicationContext(), CallToURLOnClick.class);
-                            intent.putExtra("currentDetailCall", finalCurrentDetailCall);
-                            startActivity(intent);
-                        }
-                    });
-
-
-
 
                     myLayout.addView(aNewLinLayout);
 
 
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) aNewLinLayout.getLayoutParams();
                     params.setMargins(0, 0, 0, 20);
-                    aNewLinLayout.setPadding(10,0,0,10);
+                    aNewLinLayout.setPadding(10, 10, 10, 20);
                     aNewLinLayout.setLayoutParams(params);
-
                 }
-
 
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-        }
-
-        public void LayoutClick(View view)
-        {
-            Intent intent = new Intent(getApplicationContext(), changePageSize.class);
-            startActivity(intent);
         }
 
 

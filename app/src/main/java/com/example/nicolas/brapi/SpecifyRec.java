@@ -45,7 +45,6 @@ public class SpecifyRec extends AppCompatActivity{
         FirstLin = (LinearLayout) findViewById(R.id.SpecifyLinearLayout);
         FirstLin.setOrientation(LinearLayout.VERTICAL);
 
-        Log.d(TAG,"HEREHERHE");
         retreiveDatabaselist retreiveDatabaselist = new retreiveDatabaselist();
         retreiveDatabaselist.execute();
     }
@@ -73,18 +72,17 @@ public class SpecifyRec extends AppCompatActivity{
                 }
             }
         }
-        editor.apply();
 
+        editor.apply();
         Intent intent = new Intent(this, CallToURL.class);
         startActivity(intent);
+
     }
     public class retreiveDatabaselist extends AsyncTask<Void, Void, String>
     {
-
         @Override
         protected String doInBackground(Void... voids)
         {
-
             try
             {
                 String propExtention = "";

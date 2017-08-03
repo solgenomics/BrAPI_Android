@@ -24,10 +24,10 @@ import static android.content.ContentValues.TAG;
 
 public class CallToURLOnClick extends AppCompatActivity {
 
-    TextView txt;
     String CurrentSelectDatabase;
     String currentDataCall;
-
+    String StringObjValue;
+    String StringKeyValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,7 @@ public class CallToURLOnClick extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
         CurrentSelectDatabase = prefs.getString("SelectedDatabase", "");
 
-        Intent intent = getIntent();
-        currentDataCall = intent.getStringExtra("currentDetailCall");
+        currentDataCall = prefs.getString("currentDataCall", "germplasm-search");
 
         CallToDatabase someData = new CallToDatabase();
         someData.execute();
@@ -46,40 +45,41 @@ public class CallToURLOnClick extends AppCompatActivity {
 
     private class CallToDatabase extends AsyncTask<Void, Void, String>
     {
-        //===============================================================================================================================================
 
         @Override
         protected String doInBackground(Void... voids) {
 
 
             try {
-                String builtUrl = CurrentSelectDatabase + currentDataCall;
+                SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
+                StringObjValue = prefs.getString("StringObjValue", "");
+                StringKeyValue = prefs.getString("StringKeyValue", "");
+                String builtUrl = CurrentSelectDatabase +"brapi/v1/"+currentDataCall+"?"+StringKeyValue+"="+StringObjValue;
 
-                Log.d(TAG, builtUrl);
-                URL url = new URL(builtUrl);
-                HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
+                    Log.d(TAG, builtUrl);
+                    URL url = new URL(builtUrl);
+                    HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
+                    try {
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            stringBuilder.append(line).append("\n");
+                        }
+                        bufferedReader.close();
+                        return stringBuilder.toString();
+
+                    } finally {
+                        httpURL.disconnect();
                     }
-                    bufferedReader.close();
 
-                    return stringBuilder.toString();
-
-                } finally {
-                    httpURL.disconnect();
-                }
 
             } catch (Exception e) {
                 return null;
             }
         }
 
-        //========================================================================================================================================================
         @Override
         protected void onPostExecute(String response)
         {

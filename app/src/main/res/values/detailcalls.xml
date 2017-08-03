@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="germplasm">
+        <item>germplasm/id/pedigree</item>
+        <item>germplasm/id/markerprofiles</item>
+        <item>germplasm/id/attributes</item>
+    </string-array>
+
+    <string-array name="studiesids">
+        <item>studies/id/germplasm</item>
+        <item>studies/id/observationVariables</item>
+        <item>studies/id/observationUnits</item>
+        <item>studies/id/table</item>
+        <item>studies/id/layout</item>
+        <item>studies/id/observations</item>
+    </string-array>
+
+    <string-array name="attributesids">
+        <item>attributes/categories</item>
+    </string-array>
+
+    <string-array name="mapsids">
+        <item>maps/id/positions</item>
+        <item>maps/id/positions/id</item>
+    </string-array>
+
+    <string-array name="markerprofilesids">
+        <item>markerprofiles/methods</item>
+    </string-array>
+
+    <string-array name="variablesids">
+        <item>variables/datatypes</item>
+    </string-array>
+</resources>

@@ -58,6 +58,17 @@
             style="@style/Button_Style"
             android:text="log in" />
 
+        <CheckBox
+            android:id="@+id/saveLoginCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/editTextPassword"
+            android:text="Save Login?"
+            android:textColor="#FFF"
+            android:layout_marginLeft="10dp"
+            android:buttonTint="#71DA98"/>
+
         <TextView
             android:id="@+id/tvRegister"
             style="@style/TextView_Style"

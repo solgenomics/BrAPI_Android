@@ -27,7 +27,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-
+import static android.content.ContentValues.TAG;
 
 
 public class AddADatabase extends AppCompatActivity implements View.OnClickListener
@@ -78,13 +78,12 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
                 URL url = new URL("https://test.brapi.org/brapiapp/new_database?databaseName=" + NewDatabaseName + "&databaseURL=" + NewURLFormat + "&accessToken=" + variable);
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
-
-
                 try
                 {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURL.getInputStream()));
                     StringBuilder stringBuilder = new StringBuilder();
                     String line;
+
                     while((line = bufferedReader.readLine()) != null)
                     {
                         stringBuilder.append(line).append("\n");
@@ -99,14 +98,37 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
             } catch (Exception e) {
                 return null;
             }
-
         }
         @Override
         protected void onPostExecute(String response)
         {
+            Log.d(TAG, response);
             Intent intent = new Intent(getApplicationContext(), PickADatabase.class);
-            Toast.makeText(AddADatabase.this, "Database ADDED", Toast.LENGTH_LONG).show();
-            startActivity(intent);
+            Intent stayOnPage = new Intent(getApplicationContext(), AddADatabase.class);
+            try
+            {
+                JSONObject JSONresponse = new JSONObject(response);
+                try
+                {
+                    String errorMessage = JSONresponse.getString("error");
+                    Toast.makeText(AddADatabase.this, errorMessage, Toast.LENGTH_LONG).show();
+                    startActivity(stayOnPage);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+                try
+                {
+                    String successMessage = JSONresponse.getString("success");
+                    Toast.makeText(AddADatabase.this, "Database ADDED!", Toast.LENGTH_LONG).show();
+                    startActivity(intent);
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            } catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

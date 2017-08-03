@@ -29,7 +29,7 @@ import static android.support.constraint.R.id.parent;
 
 public class PickADatabase extends AppCompatActivity
 {
-    Button myButton;
+    LinearLayout myLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +46,7 @@ public class PickADatabase extends AppCompatActivity
         Intent intent = new Intent(this, AddADatabase.class);
         startActivity(intent);
     }
+
     public void selectedRemoveADatabase(View view)
     {
         Intent intent2 = new Intent(this, RemoveADatabase.class);
@@ -96,51 +97,60 @@ public class PickADatabase extends AppCompatActivity
                 jObj = new JSONObject(response);
                 JSONArray jArr = jObj.getJSONArray("database_list");
 
-
                 for (int i = 0; i < jArr.length(); i++) {
                     JSONArray databaseArray = jArr.getJSONArray(i);
                     final String DatabaseName = databaseArray.getString(0);
                     final String DatabaseURL = databaseArray.getString(1);
 
-                    //button
-                    myButton = new Button(getApplicationContext());
-                    myButton.setText(DatabaseName);
-                    myButton.setId(R.id.DatabaseName);
+
 
                     LinearLayout eleven = (LinearLayout) findViewById(R.id.LayoutOfButtonCreate);
-                    ConstraintLayout.LayoutParams twelve = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                    eleven.addView(myButton, twelve);
 
-                    myButton.setBackgroundResource(R.drawable.createdbutton_style);
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myButton.getLayoutParams();
+                    //Layout
+                    myLayout = new LinearLayout(getApplicationContext());
+                    myLayout.setId(R.id.DatabaseName);
+                    myLayout.setOrientation(LinearLayout.VERTICAL);
+
+
+
+                    //adding style && TextView
+                    myLayout.setBackgroundResource(R.drawable.createdbutton_style);
+                    TextView DBname = new TextView(getApplicationContext());
+                    DBname.setText(DatabaseName);
+                    DBname.setAllCaps(true);
+                    DBname.setTextColor(Color.BLACK);
+                    DBname.setGravity(1);
+
+                    TextView URLName = new TextView(getApplicationContext());
+                    URLName.setText("("+DatabaseURL+")");
+                    URLName.setTextColor(Color.BLACK);
+                    URLName.setGravity(1);
+
+                    myLayout.addView(DBname);
+                    myLayout.addView(URLName);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     params.setMargins(25, 60, 25, 5); //left, top, right, bottom
-                    myButton.setPadding(0,40,0,40);
-                    myButton.setTextColor(Color.BLACK);
-
-                    myButton.setLayoutParams(params);
+                    myLayout.setPadding(0, 40, 0, 40);
+                    myLayout.setLayoutParams(params);
+                    eleven.addView(myLayout);
 
                     //attach onClickListener
-                    myButton.setOnClickListener(new View.OnClickListener(){
-
+                    myLayout.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view) {
                             SharedPreferences.Editor editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE).edit();
                             editor.putString("SelectedDatabase", DatabaseURL);
                             editor.putString("SelectedDatabaseName", DatabaseName);
                             editor.apply();
-
                             Intent GetCrop = new Intent(getApplicationContext(), SelectACategory.class);
                             startActivity(GetCrop);
                         }
                     });
-
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
-
 }
