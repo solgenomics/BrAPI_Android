@@ -231,8 +231,10 @@ public class CallToURL extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     // Something went wrong!
                                 }
-                                rowTextView.setText("  "+key + ": ");
+                                rowTextView.setText("  " + key + ": ");
+                                rowTextView.setTextColor(Color.WHITE);
                                 theOtherText.setText(objValue);
+                                theOtherText.setTextColor(Color.WHITE);
 
                                 aNewLinLayoutHoriz.addView(rowTextView);
                                 aNewLinLayoutHoriz.addView(theOtherText);
