@@ -71,7 +71,6 @@
                 android:hint="Max: 100"
                 android:textColorHint="#808080"
                 android:textColor="#fff"
-                android:onClick="ChangePageSize"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -109,7 +108,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Max: 100"
                 android:textColorHint="#808080"
-                android:onClick="ChangePageSize"
                 android:textColor="#fff"/>
 
         </LinearLayout>

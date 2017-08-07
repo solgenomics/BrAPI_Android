@@ -4,11 +4,11 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.example.nicolas.brapi"
-        minSdkVersion 23
+        applicationId "brapi.android.nicolas.brapi"
+        minSdkVersion 22
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.03"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
