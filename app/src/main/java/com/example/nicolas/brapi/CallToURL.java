@@ -218,15 +218,26 @@ public class CallToURL extends AppCompatActivity {
                                     Object value = temp.get(key);
                                     objValue = temp.get(key).toString();
                                     Something += key + ": " + value + "\n";
-
-
-                                    if (key.contains("DbId")) {
-                                        key = key.substring(0, key.length() - 4);
-                                        currentDetailCall = "brapi/v1/" + key + "/" + objValue;
+                                    if (key.equals("markerProfileDbId")) {
+                                        currentDetailCall = "brapi/v1/markerprofiles/" + objValue+"?"+"pageSize=30000";
                                         editor.putString("StringObjValue", objValue);
-                                        editor.putString("StringKeyValue", key);
                                         editor.apply();
                                     }
+
+                                    if (key.equals("germplasmDbId")) {
+                                        currentDetailCall = "brapi/v1/germplasm/" + objValue;
+                                        editor.putString("StringObjValue", objValue);
+                                        editor.apply();
+                                    }
+
+                                    if (key.equals("traitDbId")) {
+                                        currentDetailCall = "brapi/v1/traits/" + objValue;
+                                        editor.putString("StringObjValue", objValue);
+                                        editor.apply();
+                                    }
+
+
+
 
                                 } catch (JSONException e) {
                                     // Something went wrong!
@@ -293,6 +304,9 @@ public class CallToURL extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                TextView worstCaseScenarioText = new TextView(getApplicationContext());
+                worstCaseScenarioText.setText(response);
+                myLayout.addView(worstCaseScenarioText);
             }
 
         }

@@ -25,7 +25,7 @@ import static android.content.ContentValues.TAG;
 public class CallToURLOnClick extends AppCompatActivity {
 
     String CurrentSelectDatabase;
-    String currentDataCall;
+    String currentDetailCall;
     String StringObjValue;
     String StringKeyValue;
 
@@ -37,7 +37,8 @@ public class CallToURLOnClick extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
         CurrentSelectDatabase = prefs.getString("SelectedDatabase", "");
 
-        currentDataCall = prefs.getString("currentDataCall", "germplasm-search");
+        Intent intent = getIntent();
+        currentDetailCall = intent.getStringExtra("currentDetailCall");
 
         CallToDatabase someData = new CallToDatabase();
         someData.execute();
@@ -54,7 +55,7 @@ public class CallToURLOnClick extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
                 StringObjValue = prefs.getString("StringObjValue", "");
                 StringKeyValue = prefs.getString("StringKeyValue", "");
-                String builtUrl = CurrentSelectDatabase +"brapi/v1/"+currentDataCall+"?"+StringKeyValue+"="+StringObjValue;
+                String builtUrl = CurrentSelectDatabase +currentDetailCall;
 
                     Log.d(TAG, builtUrl);
                     URL url = new URL(builtUrl);
@@ -98,9 +99,19 @@ public class CallToURLOnClick extends AppCompatActivity {
                 JSONObject metadata = jObj.getJSONObject("metadata");
                 JSONArray status = metadata.getJSONArray("status");
                 JSONArray datafiles = metadata.getJSONArray("datafiles");
-                JSONObject pagination = metadata.getJSONObject("pagination");
+                try {
+                    JSONObject pagination = metadata.getJSONObject("pagination");
+                }catch (JSONException e) {
+
+                }
 
                 JSONObject result = jObj.getJSONObject("result");
+                JSONArray data = null;
+                try {
+                    data = result.getJSONArray("data");
+                }catch (JSONException e){
+
+                }
 
                 String Something = "";
                 String StringPageSuff = "";
@@ -121,6 +132,41 @@ public class CallToURLOnClick extends AppCompatActivity {
                         String key = iter.next();
                         String objValue = "";
 
+
+                        if(currentDetailCall.contains("markerprofile"))
+                        {
+                            try {
+                                Object value = result.get(key);
+                                objValue = result.get(key).toString();
+                                Something += key + ": " + value + "\n";
+
+                                Log.d(TAG, Something);
+
+                            } catch (JSONException e) {
+                                // Something went wrong!
+                            }
+                            try {
+
+                                for (int j = 0; j < data.length(); j++)
+                                {
+                                    JSONObject dataObj = data.getJSONObject(j);
+
+                                }
+                            } catch (JSONException e) {
+
+                            }
+
+                            rowTextView.setText(key + ": ");
+                            theOtherText.setText(objValue);
+
+                            aNewLinLayoutHoriz.addView(rowTextView);
+                            aNewLinLayoutHoriz.addView(theOtherText);
+
+
+                            aNewLinLayout.addView(aNewLinLayoutHoriz);
+                        }
+                        else
+                        {
                             try {
                                 Object value = result.get(key);
                                 objValue = result.get(key).toString();
@@ -136,8 +182,14 @@ public class CallToURLOnClick extends AppCompatActivity {
                             aNewLinLayoutHoriz.addView(theOtherText);
 
                             aNewLinLayout.addView(aNewLinLayoutHoriz);
+                        }
+
+
+
+
 
                         }
+
 
                     myLayout.addView(aNewLinLayout);
 
@@ -149,6 +201,9 @@ public class CallToURLOnClick extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                TextView worstCaseScenarioText = new TextView(getApplicationContext());
+                worstCaseScenarioText.setText(response);
+                myLayout.addView(worstCaseScenarioText);
             }
 
         }
