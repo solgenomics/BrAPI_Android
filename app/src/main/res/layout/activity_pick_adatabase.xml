@@ -41,7 +41,7 @@
 
     <LinearLayout
         android:id="@+id/IdCreateDatabase"
-        android:layout_width="386dp"
+        android:layout_width="match_parent"
         android:layout_height="420dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
@@ -51,7 +51,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
-            android:layout_width="385dp"
+            android:id="@+id/PickADatabaseScrollVieww"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             app:layout_constraintHorizontal_bias="0.0"
