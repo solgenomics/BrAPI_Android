@@ -7,71 +7,68 @@
     android:background="@color/colorPrimaryDark"
     tools:context="com.example.nicolas.brapi.PickADatabase">
 
-    <Button
-        android:id="@+id/bDeleteDatabase"
-        style="@style/pickADatabase_smallButton"
-        android:layout_width="151dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="47dp"
-        android:onClick="selectedRemoveADatabase"
-        android:text="Remove Database"
-        app:layout_constraintHorizontal_bias="0.106"
+
+    <ScrollView
+        android:id="@+id/PickADatabaseScrollVieww"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bCreateDatabase" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonInformation">
 
-    <Button
-        android:id="@+id/bCreateDatabase"
-        android:layout_width="151dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="17dp"
-        style="@style/pickADatabase_smallButton"
-        android:onClick="selectedAddADatabase"
-        android:text="Add Database"
-        android:layout_marginRight="47dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
-
-    <LinearLayout
-        android:id="@+id/IdCreateDatabase"
-        android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        android:weightSum="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ScrollView
-            android:id="@+id/PickADatabaseScrollVieww"
+        <LinearLayout
+            android:id="@+id/LayoutOfButtonCreate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="-30dp"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-            <LinearLayout
-                android:id="@+id/LayoutOfButtonCreate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="-30dp"
-                android:orientation="vertical"
-                android:weightSum="1">
+        </LinearLayout>
+
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/ButtonInformation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="20dp"
+        android:textAlignment="center"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:weightSum="1">
 
 
-            </LinearLayout>
+        <Button
+            android:id="@+id/bCreateDatabase"
+            style="@style/pickADatabase_smallButton"
+            android:layout_width="151dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="7dp"
+            android:layout_weight=".3"
+            android:onClick="selectedAddADatabase"
 
-        </ScrollView>
+            android:layout_marginRight="0dp"
+            android:text="Add Database"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/bDeleteDatabase"
+            style="@style/pickADatabase_smallButton"
+            android:layout_width="151dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="7dp"
+            android:layout_weight=".3"
+            android:onClick="selectedRemoveADatabase"
+            android:text="Remove Database"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

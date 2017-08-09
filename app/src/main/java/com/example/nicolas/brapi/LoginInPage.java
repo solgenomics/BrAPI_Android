@@ -28,6 +28,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+import static android.content.ContentValues.TAG;
 
 
 public class LoginInPage extends AppCompatActivity implements View.OnClickListener{

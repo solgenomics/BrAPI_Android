@@ -9,10 +9,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,12 +32,25 @@ import static android.support.constraint.R.id.parent;
 public class PickADatabase extends AppCompatActivity
 {
     LinearLayout myLayout;
+    ScrollView scrollView;
+    Button btn;
+    Button btn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_adatabase);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+
+        scrollView = (ScrollView) findViewById(R.id.PickADatabaseScrollVieww);
+        scrollView.setMinimumHeight(height-20);
+        scrollView.setMinimumWidth(width-30);
 
         retreiveDatabaselist retreiveDatabase = new retreiveDatabaselist();
         retreiveDatabase.execute();
@@ -129,8 +144,15 @@ public class PickADatabase extends AppCompatActivity
                     myLayout.addView(DBname);
                     myLayout.addView(URLName);
 
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    int height = displayMetrics.heightPixels;
+                    int width = displayMetrics.widthPixels;
+
+                    int marginTop = ((int) (height * .05));
+
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(25, 60, 25, 5); //left, top, right, bottom
+                    params.setMargins(25, marginTop, 25, 5); //left, top, right, bottom
                     myLayout.setPadding(0, 40, 0, 40);
                     myLayout.setLayoutParams(params);
                     eleven.addView(myLayout);
