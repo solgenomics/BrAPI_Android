@@ -137,7 +137,7 @@ public class LoginInPage extends AppCompatActivity implements View.OnClickListen
             String CurrentPassWord = params[0].PassWord;
 
             try {
-                URL url = new URL("https://test.brapi.org/brapi/v1/token");
+                URL url = new URL("https://cassavabase.org/brapi/v1/token");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 httpURL.setRequestMethod("POST");

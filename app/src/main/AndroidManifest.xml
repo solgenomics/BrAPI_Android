@@ -20,8 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginInPage"
-            android:label="BrAPI">
+            android:name=".PickADatabase"
+            android:label="Pick A Database" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,8 +29,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PickADatabase"
-            android:label="Pick A Database" />
+            android:name=".LoginInPage"
+            android:label="BrAPI">
+        </activity>
         <activity
             android:name=".SelectACategory"
             android:label="Pick A Category"

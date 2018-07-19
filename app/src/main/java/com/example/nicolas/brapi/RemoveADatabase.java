@@ -49,7 +49,7 @@ public class RemoveADatabase extends AppCompatActivity
         protected String doInBackground(String... strings) {
             try
             {
-                URL url = new URL("https://test.brapi.org/brapiapp/remove_database");
+                URL url = new URL("https://cassavabase.org/brapiapp/remove_database");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
 
@@ -105,7 +105,7 @@ public class RemoveADatabase extends AppCompatActivity
 
             try
             {
-                URL url = new URL("https://test.brapi.org/brapiapp/list_databases");
+                URL url = new URL("https://cassavabase.org/brapiapp/list_databases");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try

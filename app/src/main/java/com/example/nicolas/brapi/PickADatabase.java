@@ -42,30 +42,36 @@ public class PickADatabase extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_adatabase);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-
-
-        scrollView = (ScrollView) findViewById(R.id.PickADatabaseScrollVieww);
-        scrollView.setMinimumHeight(height-20);
-        scrollView.setMinimumWidth(width-30);
-
         retreiveDatabaselist retreiveDatabase = new retreiveDatabaselist();
         retreiveDatabase.execute();
     }
 
     public void selectedAddADatabase(View view)
     {
-        Intent intent = new Intent(this, AddADatabase.class);
-        startActivity(intent);
+        SharedPreferences editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
+        String variable = editor.getString("accessToken", "0");
+        Log.d("access token: ", variable);
+        if(variable.isEmpty() || variable.equals("0")){
+            Intent Login = new Intent(getApplicationContext(), LoginInPage.class);
+            startActivity(Login);
+        } else {
+            Intent intent = new Intent(this, AddADatabase.class);
+            startActivity(intent);
+        }
     }
 
     public void selectedRemoveADatabase(View view)
     {
-        Intent intent2 = new Intent(this, RemoveADatabase.class);
-        startActivity(intent2);
+        SharedPreferences editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
+        String variable = editor.getString("accessToken", "0");
+        Log.d("access token: ", variable);
+        if(variable.isEmpty() || variable.equals("0")){
+            Intent Login = new Intent(getApplicationContext(), LoginInPage.class);
+            startActivity(Login);
+        } else {
+            Intent intent2 = new Intent(this, RemoveADatabase.class);
+            startActivity(intent2);
+        }
     }
 
     public class retreiveDatabaselist extends AsyncTask<Void, Void, String>
@@ -77,7 +83,7 @@ public class PickADatabase extends AppCompatActivity
 
             try
             {
-                URL url = new URL("https://test.brapi.org/brapiapp/list_databases");
+                URL url = new URL("https://cassavabase.org/brapiapp/list_databases");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try

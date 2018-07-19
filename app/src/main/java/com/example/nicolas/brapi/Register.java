@@ -73,7 +73,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
             try
             {
-                URL url = new URL("https://test.brapi.org/brapiapp/register");
+                URL url = new URL("https://cassavabase.org/brapiapp/register");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
                 httpURL.setRequestMethod("POST");
                 String data = URLEncoder.encode("first_name", "UTF-8") + "=" + URLEncoder.encode(StringFirstName, "UTF-8");
@@ -142,7 +142,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
             try
             {
-                URL url = new URL("https://test.brapi.org/brapiapp/list_databases");
+                URL url = new URL("https://cassavabase.org/brapiapp/list_databases");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try

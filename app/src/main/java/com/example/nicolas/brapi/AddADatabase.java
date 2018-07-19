@@ -27,6 +27,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.security.auth.login.LoginException;
+
 import static android.content.ContentValues.TAG;
 
 
@@ -75,7 +77,7 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences editor = getSharedPreferences("Variables.BrAPI", MODE_PRIVATE);
                 String variable = editor.getString("accessToken", "0");
 
-                URL url = new URL("https://test.brapi.org/brapiapp/new_database?databaseName=" + NewDatabaseName + "&databaseURL=" + NewURLFormat + "&accessToken=" + variable);
+                URL url = new URL("https://cassavabase.org/brapiapp/new_database?databaseName=" + NewDatabaseName + "&databaseURL=" + NewURLFormat + "&accessToken=" + variable);
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try
@@ -143,7 +145,7 @@ public class AddADatabase extends AppCompatActivity implements View.OnClickListe
 
             try
             {
-                URL url = new URL("https://test.brapi.org/brapiapp/list_databases");
+                URL url = new URL("https://cassavabase.org/brapiapp/list_databases");
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try

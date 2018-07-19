@@ -122,7 +122,7 @@ public class SpecifyRec extends AppCompatActivity{
 
 
                 //Change URL to User preferences
-                URL url = new URL("https://test.brapi.org/brapiapp/searchparameters?call="+Something);
+                URL url = new URL("https://cassavabase.org/brapiapp/searchparameters?call="+Something);
                 HttpsURLConnection httpURL = (HttpsURLConnection) url.openConnection();
 
                 try
